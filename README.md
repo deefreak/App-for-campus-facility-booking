@@ -5,6 +5,7 @@
 - Allow students to book usage of lab equipment.
 - A web based application for admin access for the same
 - Allow peers for booking tennis,badminton etc courts.
+- Allow students to mark attendace via location based attendace system
 
 ## WorkFlow
 1. Preparation of the [software requirements specification (SRS)](https://en.wikipedia.org/wiki/Software_requirements_specification) documentation.
