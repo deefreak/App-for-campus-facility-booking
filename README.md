@@ -1,4 +1,4 @@
-# Android-IOS-App-for-campus-facility-booking
+# Android-App-for-campus-facility-booking
 
 ## Idea
 - Allow teachers and students to book room for holding classes or events.
@@ -14,4 +14,5 @@
 4. Continuous build and delivery/deployment of the software.
 5. Final deployment of the software.
 
+Refer [Wiki page](https://github.com/CS305-software-Engineering/App-for-campus-facility-booking/wiki) for more details
 

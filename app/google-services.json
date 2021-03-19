@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "43196823541",
+    "project_id": "campusfacilitybooking",
+    "storage_bucket": "campusfacilitybooking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43196823541:android:f84fc4ad7e69e2696f12bc",
+        "android_client_info": {
+          "package_name": "com.example.cfb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43196823541-7kmlhcesjmm1s1t8s4ruv3llu94271nj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cfb",
+            "certificate_hash": "82e6814779560a826eb02842c4e1d26b754c33f9"
+          }
+        },
+        {
+          "client_id": "43196823541-5nkaejf0dbq6gq4h0l4en9gb51qdcare.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrV99VUbBWUbHJFciM0wi51kJgM19tvPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43196823541-5nkaejf0dbq6gq4h0l4en9gb51qdcare.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
