@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import androidx.core.content.ContextCompat.startActivity
 
 
 import com.google.android.material.textfield.TextInputLayout
@@ -28,7 +29,7 @@ import com.google.firebase.ktx.Firebase
 import org.jetbrains.anko.backgroundColor
 
 
-class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,String>>):
+class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,String>>,var date: String,var facilityName: String):
         RecyclerView.Adapter<RoomSlotAdapter.DetailsViewHolder>() {
 
     class DetailsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -39,7 +40,10 @@ class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,S
 
     }
     override fun onBindViewHolder(holder: RoomSlotAdapter.DetailsViewHolder, position: Int) {
+        var slotText = ""
         var details = slots[position].first
+
+        var originalSlot = slots[position].first
         var startTime = details.substring(0,2)
 
         var endTime = details.substring(4,6)
@@ -52,9 +56,11 @@ class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,S
         }
 
         if(details[6] == 'p'){
+            slotText = "$startTime:00 PM - $endTime:00 PM"
             holder.slot.text = "Slot: "+ startTime + ":00 PM - "+ endTime + ":00 PM"
         }
         else{
+            slotText = "$startTime:00 AM - $endTime:00 AM"
             holder.slot.text = "Slot: "+ startTime + ":00 AM - "+ endTime + ":00 AM"
         }
 
@@ -73,6 +79,51 @@ class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,S
             holder.bookButton.text = "Academic Slot"
             val color = Color.GRAY
             holder.bookButton.setBackgroundColor(color)
+        }
+
+        holder.bookButton.setOnClickListener {
+            if(holder.bookButton.text == "Already Booked"){
+                Toast.makeText(context,"Please Choose Another Slot. This has already been booked",Toast.LENGTH_LONG).show()
+
+            }
+            else if(holder.bookButton.text == "Academic Slot"){
+                Toast.makeText(context,"Please Choose Another Slot. This is reserved for academic purposes",Toast.LENGTH_LONG).show()
+            }
+            else{
+                val auth = FirebaseAuth.getInstance()
+                val id = auth.currentUser?.uid
+
+                val firestore = FirebaseFirestore.getInstance().collection("Users")
+
+                if (id != null) {
+                    firestore.document(id).get()
+                        .addOnSuccessListener {
+                            if(it.exists()) {
+                                var result = it.data
+
+                                if (result != null) {
+
+                                    val intent = Intent(context,ConfirmBookingActivity::class.java)
+
+
+                                    intent.putExtra("name",result["name"].toString())
+                                    intent.putExtra("email",result["email"].toString())
+                                    intent.putExtra("date",date)
+                                    intent.putExtra("slot",slotText)
+                                    intent.putExtra("facilityName",facilityName)
+                                    intent.putExtra("originalSlot",originalSlot)
+                                    context.startActivity(intent)
+                                }
+                            }
+                            else{
+                                Toast.makeText(context,"null",Toast.LENGTH_LONG).show()
+                            }
+
+
+                        }
+                }
+
+            }
         }
     }
     override fun onCreateViewHolder(

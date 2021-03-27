@@ -22,6 +22,14 @@ class LoginActivity : AppCompatActivity() {
 
         val goToRegister: TextView = findViewById(R.id.go_to_register)
 
+        val auth =FirebaseAuth.getInstance()
+
+        if(auth.currentUser != null){
+            val intent = Intent(this,HomePageActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         goToRegister.setOnClickListener {
             startActivity(Intent(this,SignUpActivity::class.java))
         }

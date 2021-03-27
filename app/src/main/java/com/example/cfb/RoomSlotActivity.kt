@@ -44,7 +44,7 @@ class RoomSlotActivity : AppCompatActivity() {
 
 
                     recyclerView = findViewById(R.id.recyclerSlots)
-                    roomSlotAdapter = RoomSlotAdapter(this,list1)
+                    roomSlotAdapter = RoomSlotAdapter(this,list1,date,name)
 
 
                     recyclerView.adapter = roomSlotAdapter
