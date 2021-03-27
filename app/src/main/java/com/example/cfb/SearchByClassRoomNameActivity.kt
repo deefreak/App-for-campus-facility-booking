@@ -29,7 +29,7 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     if(it.exists()) {
                         var result = it.data
-                        Toast.makeText(this, "yes", Toast.LENGTH_LONG).show()
+
                         if (result != null) {
 
                             val intent = Intent(this,RoomSlotActivity::class.java)
