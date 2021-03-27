@@ -102,6 +102,9 @@ class SignUpActivity : AppCompatActivity() {
 
             signUpProgress.visibility = VISIBLE
 
+
+
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -145,7 +148,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,e.toString(), Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
