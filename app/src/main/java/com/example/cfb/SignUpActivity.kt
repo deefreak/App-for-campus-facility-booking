@@ -3,21 +3,32 @@ package com.example.cfb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
-import android.util.Patterns
+import android.view.View
 import android.view.View.GONE
+import android.widget.*
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
+import android.text.TextUtils
+import android.util.Patterns
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
 
+    lateinit var auth: FirebaseAuth
+    lateinit var storedVerificationId:String
+    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     val passwordRegex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +45,13 @@ class SignUpActivity : AppCompatActivity() {
 
         val signUpProgress: ProgressBar = findViewById(R.id.sign_up_progress)
 
-        signUpButton.setOnClickListener {
+        auth=FirebaseAuth.getInstance()
+
+//        Reference
+        val Login=findViewById<Button>(R.id.signup_button)
+
+        Login.setOnClickListener{
+
             val email = emailText.editText?.text.toString()
             val name = nameText.editText?.text.toString()
             val password = passwordText.editText?.text.toString()
@@ -88,12 +105,13 @@ class SignUpActivity : AppCompatActivity() {
 
             signUpProgress.visibility = VISIBLE
 
-            val auth = FirebaseAuth.getInstance()
-
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
+
+                        login()
+
                         val user = User(
                             auth.currentUser?.uid!!,
                             name,
@@ -104,10 +122,8 @@ class SignUpActivity : AppCompatActivity() {
                         firestore.document(auth.currentUser?.uid!!).set(user)
                             .addOnCompleteListener { task2 ->
                                 if (task2.isSuccessful) {
-
-                                    val intent = Intent(this, LoginActivity::class.java)
-                                    startActivity(intent)
-                                    //startActivity(Intent(activity, MainActivity::class.java))
+//                                    val intent = Intent(this, LoginActivity::class.java)
+//                                    startActivity(intent)
                                 } else {
                                     Toast.makeText(this, "Something went wrong. Please try again.", Toast.LENGTH_LONG).show()
                                     Log.d("Error", task2.exception.toString())
@@ -123,9 +139,54 @@ class SignUpActivity : AppCompatActivity() {
                 }
         }
 
-        goToLogin.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
+        // Callback function for Phone Auth
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                startActivity(Intent(applicationContext, LoginActivity::class.java))
+                finish()
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+
+                Log.d("TAG","onCodeSent:$verificationId")
+                storedVerificationId = verificationId
+                resendToken = token
+
+                var intent = Intent(applicationContext,verify_mobile::class.java)
+                intent.putExtra("storedVerificationId",storedVerificationId)
+                startActivity(intent)
+            }
         }
 
+    }
+
+    private fun login() {
+        val mobileNumber: TextInputLayout = findViewById(R.id.mobile)
+        var number=mobileNumber.editText?.text.toString().trim()
+
+        if(!number.isEmpty()){
+            number="+91"+number
+            sendVerificationcode (number)
+        }else{
+            Toast.makeText(this,"Enter mobile number",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun sendVerificationcode(number: String) {
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(number) // Phone number to verify
+            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(this) // Activity (for callback binding)
+            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
     }
 }
