@@ -47,10 +47,7 @@ class SignUpActivity : AppCompatActivity() {
 
         auth=FirebaseAuth.getInstance()
 
-//        Reference
-        val Login=findViewById<Button>(R.id.signup_button)
-
-        Login.setOnClickListener{
+        signUpButton.setOnClickListener{
 
             val email = emailText.editText?.text.toString()
             val name = nameText.editText?.text.toString()
@@ -110,7 +107,7 @@ class SignUpActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
 
-                        login()
+                        verifyOTP()
 
                         val user = User(
                             auth.currentUser?.uid!!,
@@ -165,10 +162,14 @@ class SignUpActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        
+        goToLogin.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
 
     }
 
-    private fun login() {
+    private fun verifyOTP() {
         val mobileNumber: TextInputLayout = findViewById(R.id.mobile)
         var number=mobileNumber.editText?.text.toString().trim()
 
