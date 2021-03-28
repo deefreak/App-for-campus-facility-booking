@@ -36,7 +36,12 @@ class RoomSlotActivity : AppCompatActivity() {
 
                     if (result != null) {
                         for ((key,value) in result){
-                            list[key] = value.toString()
+                            if(key == "type"){
+                                continue
+                            }
+                            else {
+                                list[key] = value.toString()
+                            }
                         }
 
                     }

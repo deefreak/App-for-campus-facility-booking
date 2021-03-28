@@ -48,28 +48,45 @@ class ConfirmBookingActivity : AppCompatActivity() {
         confirmButton.setOnClickListener {
             val firestore = FirebaseFirestore.getInstance()
             val list: MutableList<ClassRoom> = mutableListOf()
-            firestore.collection("ClassRooms").whereEqualTo("Name",facilityName).get()
+            var type=""
+            firestore.collection(date).document(facilityName).get()
                 .addOnSuccessListener {
-                    for(document in it){
-                        list.add(document.toObject(ClassRoom::class.java))
+                    type = it.getString("type").toString()
+                    firestore.collection(type).whereEqualTo("Name", facilityName).get()
+                        .addOnSuccessListener {
+                            for (document in it) {
+                                list.add(document.toObject(ClassRoom::class.java))
 
-                    }
-                    var buildingName = list[0].BuildingName
-                    val purposeText = purpose.editText?.text.toString()
-                    val bookingHistory = BookingHistory(email,date,slot,name,facilityName,purposeText,buildingName)
+                            }
+                            var buildingName = list[0].BuildingName
+                            val purposeText = purpose.editText?.text.toString()
+                            val bookingHistory = BookingHistory(
+                                email,
+                                date,
+                                slot,
+                                name,
+                                facilityName,
+                                purposeText,
+                                buildingName
+                            )
 
-                    firestore.collection("BookingHistory").document().set(bookingHistory)
-                        .addOnCompleteListener {task->
-                            if(task.isSuccessful){
-                                firestore.collection(date).document(facilityName).update(originalSlot, "booked")
-                                Toast.makeText(this,"SuccessFully Booked",Toast.LENGTH_LONG).show()
-                                val intent = Intent(this,HomePageActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-                            else{
-                                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show()
-                            }
+                            firestore.collection("BookingHistory").document().set(bookingHistory)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        firestore.collection(date).document(facilityName)
+                                            .update(originalSlot, "booked")
+                                        Toast.makeText(
+                                            this,
+                                            "SuccessFully Booked",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        val intent = Intent(this, HomePageActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                                    }
+                                }
                         }
                 }
 
