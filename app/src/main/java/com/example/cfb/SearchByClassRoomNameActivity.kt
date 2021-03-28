@@ -41,7 +41,7 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
                         }
                     }
                     else{
-                        Toast.makeText(this,"null",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,"No Such Room Exists Or Room is Not Available for Booking on this Particular Date",Toast.LENGTH_LONG).show()
                     }
 
                 }

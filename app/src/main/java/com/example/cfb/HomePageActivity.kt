@@ -13,12 +13,18 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
 
         val searchByRoom: CardView = findViewById(R.id.searchByRoom)
+        val searchByStrength: CardView = findViewById(R.id.searchByStrength)
         val auth = FirebaseAuth.getInstance()
         val logout: CardView = findViewById(R.id.logout)
 
 
         searchByRoom.setOnClickListener {
             val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+            startActivity(intent)
+
+        }
+        searchByStrength.setOnClickListener {
+            val intent = Intent(this,SearchByClassRoomCapacityActivity::class.java)
             startActivity(intent)
 
         }
