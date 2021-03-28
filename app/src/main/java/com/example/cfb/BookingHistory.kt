@@ -6,4 +6,4 @@ data class BookingHistory(val BookedBy: String = "",
                 val date: String = "",
                 val slot: String ="",
                 val name: String = "",
-                var facilityName: String = "",var purpose: String = "")
+                var facilityName: String = "",var purpose: String = "",var building: String = "")

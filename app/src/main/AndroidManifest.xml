@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusFacilityBooking">
-        <activity android:name=".ViewRoomByCapacityActivity"></activity>
+        <activity android:name=".ViewBookingHistoryActivity"></activity>
+        <activity android:name=".ViewRoomByCapacityActivity" />
         <activity android:name=".SearchByClassRoomCapacityActivity" />
         <activity android:name=".ConfirmBookingActivity" />
         <activity android:name=".RoomSlotActivity" />

@@ -14,6 +14,8 @@ class HomePageActivity : AppCompatActivity() {
 
         val searchByRoom: CardView = findViewById(R.id.searchByRoom)
         val searchByStrength: CardView = findViewById(R.id.searchByStrength)
+        val viewBooking: CardView = findViewById(R.id.viewBooking)
+
         val auth = FirebaseAuth.getInstance()
         val logout: CardView = findViewById(R.id.logout)
 
@@ -27,6 +29,11 @@ class HomePageActivity : AppCompatActivity() {
             val intent = Intent(this,SearchByClassRoomCapacityActivity::class.java)
             startActivity(intent)
 
+        }
+
+        viewBooking.setOnClickListener {
+            val intent = Intent(this,ViewBookingHistoryActivity::class.java)
+            startActivity(intent)
         }
 
         logout.setOnClickListener{
