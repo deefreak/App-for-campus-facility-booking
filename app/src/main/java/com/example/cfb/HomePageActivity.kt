@@ -12,23 +12,28 @@ class HomePageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        val searchByRoom: CardView = findViewById(R.id.searchByRoom)
-        val searchByStrength: CardView = findViewById(R.id.searchByStrength)
+        val classBooking: CardView = findViewById(R.id.classbook)
+        val labBooking: CardView = findViewById(R.id.labbook)
+        val sportBooking: CardView = findViewById(R.id.sportbook)
         val viewBooking: CardView = findViewById(R.id.viewBooking)
 
         val auth = FirebaseAuth.getInstance()
         val logout: CardView = findViewById(R.id.logout)
 
 
-        searchByRoom.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+        classBooking.setOnClickListener {
+            val intent = Intent(this,ClassRoomBookingActivity::class.java)
             startActivity(intent)
-
         }
-        searchByStrength.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomCapacityActivity::class.java)
-            startActivity(intent)
 
+        labBooking.setOnClickListener {
+            val intent = Intent(this,ClassRoomBookingActivity::class.java)
+            startActivity(intent)
+        }
+
+        sportBooking.setOnClickListener {
+            val intent = Intent(this,ClassRoomBookingActivity::class.java)
+            startActivity(intent)
         }
 
         viewBooking.setOnClickListener {

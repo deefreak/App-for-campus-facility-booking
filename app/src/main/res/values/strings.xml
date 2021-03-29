@@ -3,4 +3,13 @@
     <string name="new_user_click_here_to_register">New User?. Click Here To Register</string>
     <string name="already_an_user_click_here_to_login">Already an User?. Click here to Login</string>
 
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="ClassFilters">
+        <item>SELECT ONE:</item>
+        <item>Search By Classroom name</item>
+        <item>Search By Classroom strength</item>
+        <item>Demo</item>
+    </string-array>
+
 </resources>

@@ -33,11 +33,45 @@
             android:columnOrderPreserved="false"
             android:rowCount="4">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:id="@+id/classbook"
+
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#3192F4"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/ic_launcher_foreground" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Book Class"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="170dp"
                 android:layout_height="170dp"
-                android:id="@+id/searchByRoom"
+                android:id="@+id/labbook"
 
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#3192F4"
@@ -60,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Book By ClassRoom Name"
+                        android:text="Book Lab"
                         android:textColor="#ffffff"
                         android:textSize="18sp" />
 
@@ -71,7 +105,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="170dp"
                 android:layout_height="170dp"
-                android:id="@+id/searchByStrength"
+                android:id="@+id/sportbook"
 
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#3192F4"
@@ -94,7 +128,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Book By ClassRoom Strength"
+                        android:text="Book Sports"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:id="@+id/viewBooking"
+
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#3192F4"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/ic_launcher_foreground" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="View Bookings"
                         android:textColor="#ffffff"
                         android:textSize="18sp" />
 
@@ -135,41 +203,6 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:id="@+id/viewBooking"
-
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="#3192F4"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="18dp"
-                        android:src="@drawable/ic_launcher_foreground" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="View Your Bookings"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
 
 
 
