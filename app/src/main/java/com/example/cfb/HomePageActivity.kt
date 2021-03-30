@@ -3,6 +3,7 @@ package com.example.cfb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -18,7 +19,7 @@ class HomePageActivity : AppCompatActivity() {
         val viewBooking: CardView = findViewById(R.id.viewBooking)
 
         val auth = FirebaseAuth.getInstance()
-        val logout: CardView = findViewById(R.id.logout)
+        val logout: ImageView = findViewById(R.id.logout)
 
 
         classBooking.setOnClickListener {
@@ -27,7 +28,7 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         labBooking.setOnClickListener {
-            val intent = Intent(this,ClassRoomBookingActivity::class.java)
+            val intent = Intent(this,LabBookingActivity::class.java)
             startActivity(intent)
         }
 

@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 
 
-class ClassRoomBookingActivity : AppCompatActivity() {
+class LabBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_class_room_booking)
+        setContentView(R.layout.activity_lab_booking)
 
         val searchByRoom: CardView = findViewById(R.id.searchByRoomCard)
         val searchByStrength: CardView = findViewById(R.id.searchByCapacityCard)
