@@ -12,17 +12,17 @@ class LabBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lab_booking)
 
-        val searchByRoom: CardView = findViewById(R.id.searchByRoomCard)
-        val searchByStrength: CardView = findViewById(R.id.searchByCapacityCard)
+        val searchByLab: CardView = findViewById(R.id.searchByLabCard)
+        val searchByEquipment: CardView = findViewById(R.id.searchByEquipmentCard)
         val goback: ImageView = findViewById(R.id.backB)
 
-        searchByRoom.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+        searchByLab.setOnClickListener {
+            val intent = Intent(this,SearchByLabNameActivity::class.java)
             startActivity(intent)
         }
 
-        searchByStrength.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+        searchByEquipment.setOnClickListener {
+            val intent = Intent(this,SearchByLabNameActivity::class.java)
             startActivity(intent)
         }
 

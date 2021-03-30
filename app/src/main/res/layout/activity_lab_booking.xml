@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e4e4e4"
-    tools:context=".ClassRoomBookingActivity"
+    tools:context=".LabBookingActivity"
     tools:ignore="HardcodedText">
 
     <View
@@ -138,7 +138,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/searchByRoomCard"
+            android:id="@+id/searchByLabCard"
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:layout_margin="8dp"
@@ -185,7 +185,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/searchByCapacityCard"
+            android:id="@+id/searchByEquipmentCard"
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:layout_margin="8dp"
