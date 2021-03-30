@@ -44,8 +44,28 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
         holder.name.text = bookingList[position].facilityName
         holder.building.text = bookingList[position].building
-        holder.date.text = bookingList[position].date
-        holder.slot.text = bookingList[position].slot
+
+        var date1 = bookingList[position].date
+        var date2 = ""
+        var j = 0
+        var i =0
+        var n = date1.length
+        while(j<n) {
+            if (i == 2 || i == 5){
+                date2 = "$date2/"
+                i++
+            }
+            else{
+                date2 += date1[j]
+                j++
+                i++
+            }
+        }
+        Log.d("res",date2)
+
+
+        holder.slot.text = "Slot: " + bookingList[position].slot
+        holder.date.text = "Date: " + date2
 
 
     }

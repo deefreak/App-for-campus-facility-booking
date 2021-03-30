@@ -21,6 +21,7 @@ class RoomSlotActivity : AppCompatActivity() {
 
         var name = intent.extras?.get("name") as String
         var date = intent.extras?.get("date") as String
+        Toast.makeText(this,date,Toast.LENGTH_LONG).show()
 
         var text: TextView = findViewById(R.id.text)
         text.text = "Booking Slots For $name"

@@ -31,8 +31,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Room"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,8 +43,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Department"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/room" />
 
@@ -55,8 +55,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Building"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/department" />
 
@@ -72,14 +72,23 @@
                 android:hint="Enter Date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/building" >
+                app:layout_constraintTop_toBottomOf="@id/building">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/pickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pick Date"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date"/>
 
 
             <android.widget.Button
@@ -87,11 +96,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:background="@color/teal_700"
+                android:backgroundTint="@null"
                 android:text="View Slots "
                 android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/date"
-                android:backgroundTint="@null"
-                android:background="@color/teal_700"
+                app:layout_constraintTop_toBottomOf="@id/pickDate"
                 tools:layout_editor_absoluteX="0dp" />
 
 

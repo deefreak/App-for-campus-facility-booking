@@ -13,6 +13,8 @@ class SearchByClassRoomCapacityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_by_class_room_capacity)
 
+
+
         val search: Button = findViewById(R.id.searchButton)
 
         val capacity: TextInputLayout = findViewById(R.id.capacity)

@@ -1,6 +1,7 @@
 package com.example.cfb
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -30,6 +31,7 @@ import com.google.firebase.ktx.Firebase
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.find
 import org.w3c.dom.Text
+import java.util.*
 
 
 class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList<ClassRoom>):
@@ -41,6 +43,7 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
         var viewButton: Button = itemView.findViewById(R.id.viewslots)
         var departmentName: TextView = itemView.findViewById(R.id.department)
         var buildingName: TextView = itemView.findViewById(R.id.building)
+        var datePicker: Button = itemView.findViewById(R.id.pickDate)
 
         var date: TextInputLayout = itemView.findViewById(R.id.date)
 
@@ -51,10 +54,36 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
         holder.roomName.text = classlist[position].Name
         holder.departmentName.text = classlist[position].Department
         holder.buildingName.text = classlist[position].BuildingName
+        holder.date.isEnabled = false
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        var date1 = ""
+
+        holder.datePicker.setOnClickListener {
+            var dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                // Display Selected date in TextView
+                holder.date.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt()+1).toString() + " / " + year)
+                var monthnumber = ""
+                var correctMonth = monthOfYear+1
+                if(correctMonth < 10){
+                    monthnumber = "0$correctMonth"
+                }
+                date1 = dayOfMonth.toString() + monthnumber + year.toString()
+            }, year, month, day)
+
+            val now = System.currentTimeMillis() - 1000
+            //dpd.datePicker.minDate = now
+            dpd.datePicker.maxDate = now + (1000*60*60*24*7)
+            dpd.show()
+        }
 
 
         holder.viewButton.setOnClickListener {
-            val dateText = holder.date.editText?.text.toString()
+            val dateText = date1
             holder.date.error = null
 
 
@@ -67,16 +96,16 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
             intent.putExtra("date",dateText)
 
             val firestore = FirebaseFirestore.getInstance()
-            firestore.collection(holder.date.editText?.text.toString()).document(holder.roomName.text as String).get()
+            firestore.collection(dateText).document(holder.roomName.text as String).get()
                 .addOnSuccessListener{
                     if(it.exists()){
                         val intent = Intent(context,RoomSlotActivity::class.java)
                         intent.putExtra("name",holder.roomName.text as String)
-                        intent.putExtra("date",holder.date.editText?.text.toString())
+                        intent.putExtra("date",dateText)
                         context.startActivity(intent)
                     }
                     else{
-                        Toast.makeText(context,"No Slots On this Date. Try Another Date.",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context,"No Slots On this Date. Try Another Date(Pick Date from the Pick Date Button Only).",Toast.LENGTH_LONG).show()
 
                     }
                 }
