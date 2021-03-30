@@ -50,38 +50,49 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
         holder.building.text = bookingList[position].building
         holder.slot.text = "Slot: " + bookingList[position].slot
 
-
+        var type = ""
         var date1 = bookingList[position].date
-        var currentDate = SimpleDateFormat("yyyyMMdd").format(Date())
+        val date2 = date1.substring(6,8) + date1.substring(4,6) + date1.substring(0,4)
+        val firestore =  FirebaseFirestore.getInstance().collection(date2)
+        firestore.document(bookingList[position].facilityName).get()
+            .addOnSuccessListener {
+                type = it.getString("type").toString()
 
-        if(currentDate.toInt() == date1.toInt()){
-            holder.statusButton.text = "Today"
-            holder.statusButton.setBackgroundColor(Color.GREEN)
-        }
-        else if(currentDate.toInt() < date1.toInt()){
-            holder.statusButton.text = "UpComing"
-            holder.statusButton.setBackgroundColor(Color.BLUE)
-        }
-        var date2 = ""
-        var j = 0
-        var i =0
-        var n = date1.length
-        while(j<n) {
-            if (i == 4 || i == 7){
-                date2 = "$date2/"
-                i++
+                var currentDate = SimpleDateFormat("yyyyMMdd").format(Date())
+
+                if(currentDate.toInt() == date1.toInt()){
+                    holder.statusButton.text = "Today"
+                    holder.statusButton.setBackgroundColor(Color.GREEN)
+                }
+                else if(currentDate.toInt() < date1.toInt()){
+                    holder.statusButton.text = "UpComing"
+                    holder.statusButton.setBackgroundColor(Color.BLUE)
+                }
+                var date2 = ""
+                var j = 0
+                var i =0
+                var n = date1.length
+                while(j<n) {
+                    if (i == 4 || i == 7){
+                        date2 = "$date2/"
+                        i++
+                    }
+                    else{
+                        date2 += date1[j]
+                        j++
+                        i++
+                    }
+                }
+                Log.d("res",date2)
+
+                var n1 = type.length
+                type = type.substring(0,n1-1)
+
+                holder.name.text = "$type: " + bookingList[position].facilityName
+                holder.date.text = "Date: " + date2
+
             }
-            else{
-                date2 += date1[j]
-                j++
-                i++
-            }
-        }
-        Log.d("res",date2)
 
-
-
-        holder.date.text = "Date: " + date2
 
 
     }
