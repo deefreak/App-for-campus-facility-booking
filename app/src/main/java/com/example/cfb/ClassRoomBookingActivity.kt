@@ -22,7 +22,7 @@ class ClassRoomBookingActivity : AppCompatActivity() {
         }
 
         searchByStrength.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+            val intent = Intent(this,SearchByClassRoomCapacityActivity::class.java)
             startActivity(intent)
         }
 
