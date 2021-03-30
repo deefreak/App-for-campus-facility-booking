@@ -47,7 +47,14 @@ class ViewBookingHistoryActivity : AppCompatActivity() {
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         list.add(document.toObject(BookingHistory::class.java))
+
                     }
+                    for (i in list){
+                        var date = i.date
+                        var date1 = date.substring(4,8) + date.substring(2,4) + date.substring(0,2)
+                        i.date = date1
+                    }
+                    list.sortByDescending {it.date}
                     (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
                 }
                 .addOnFailureListener {
@@ -55,6 +62,7 @@ class ViewBookingHistoryActivity : AppCompatActivity() {
                 }
 
             uiThread {
+
                 viewBookingHistoryAdapter.setList(list)
             }
         }

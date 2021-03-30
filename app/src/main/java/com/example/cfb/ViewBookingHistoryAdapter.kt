@@ -27,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.ktx.Firebase
 import org.jetbrains.anko.backgroundColor
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 
 class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableList<BookingHistory>):
@@ -37,6 +40,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
         var name: TextView = itemView.findViewById(R.id.name)
         var date: TextView = itemView.findViewById(R.id.date)
         var building: TextView = itemView.findViewById(R.id.buildingname)
+        var statusButton: Button = itemView.findViewById(R.id.statusButton)
 
 
     }
@@ -44,14 +48,26 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
         holder.name.text = bookingList[position].facilityName
         holder.building.text = bookingList[position].building
+        holder.slot.text = "Slot: " + bookingList[position].slot
+
 
         var date1 = bookingList[position].date
+        var currentDate = SimpleDateFormat("yyyyMMdd").format(Date())
+
+        if(currentDate.toInt() == date1.toInt()){
+            holder.statusButton.text = "Today"
+            holder.statusButton.setBackgroundColor(Color.GREEN)
+        }
+        else if(currentDate.toInt() < date1.toInt()){
+            holder.statusButton.text = "UpComing"
+            holder.statusButton.setBackgroundColor(Color.BLUE)
+        }
         var date2 = ""
         var j = 0
         var i =0
         var n = date1.length
         while(j<n) {
-            if (i == 2 || i == 5){
+            if (i == 4 || i == 7){
                 date2 = "$date2/"
                 i++
             }
@@ -64,7 +80,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
         Log.d("res",date2)
 
 
-        holder.slot.text = "Slot: " + bookingList[position].slot
+
         holder.date.text = "Date: " + date2
 
 
@@ -84,6 +100,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
     fun setList(list: MutableList<BookingHistory>){
         bookingList = list
+
         notifyDataSetChanged()
     }
 }

@@ -31,8 +31,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Slot"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,8 +43,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Date"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/slot" />
 
@@ -55,8 +55,8 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Name"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date" />
 
@@ -67,12 +67,27 @@
                 android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Building Name"
-                android:textSize="24sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/name" />
 
-
+            <android.widget.Button
+                android:id="@+id/statusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#E81909"
+                android:backgroundTint="@null"
+                android:text="Completed"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.942"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.865" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
