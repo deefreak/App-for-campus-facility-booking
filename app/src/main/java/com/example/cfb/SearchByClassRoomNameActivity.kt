@@ -34,17 +34,17 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
             var dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in TextView
                 pickedDate.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt()+1).toString() + " / " + year)
-                var monthnumber = (monthOfYear+1).toString()
-                var correctMonth = monthOfYear+1
-                if(correctMonth < 10){
+                var daynumber = ""
+                var monthnumber = ""
+                var correctMonth = monthOfYear + 1
+                if (correctMonth < 10) {
                     monthnumber = "0$correctMonth"
                 }
-                var dd =dayOfMonth.toString()
-                var correctdd = dayOfMonth
-                if(correctdd<10){
-                    dd = "0$correctdd"
+                if (dayOfMonth < 10) {
+                    daynumber = "0$dayOfMonth"
+                    date = daynumber + monthnumber + year.toString()
                 }
-                date = dd + monthnumber + year.toString()
+                else {date = dayOfMonth.toString() + monthnumber + year.toString()}
             }, year, month, day)
 
             val now = System.currentTimeMillis() - 1000

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,7 +15,7 @@ import org.jetbrains.anko.uiThread
 class LabSlotActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var roomSlotAdapter: RoomSlotAdapter
+    lateinit var labSlotAdapter: LabSlotAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lab_slot)
@@ -49,11 +50,12 @@ class LabSlotActivity : AppCompatActivity() {
 
 
                     recyclerView = findViewById(R.id.recyclerSlots)
-                    roomSlotAdapter = RoomSlotAdapter(this,list1,date,name)
+                    labSlotAdapter = LabSlotAdapter(this,list1,date,name)
 
 
-                    recyclerView.adapter = roomSlotAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView.adapter = labSlotAdapter
+//                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView.layoutManager = GridLayoutManager(this, 2)
 
                     fetchToDoList(list)
 
@@ -77,10 +79,10 @@ class LabSlotActivity : AppCompatActivity() {
                 list1.add(pair)
             }
 
-            (recyclerView.adapter as RoomSlotAdapter).notifyDataSetChanged()
+            (recyclerView.adapter as LabSlotAdapter).notifyDataSetChanged()
 
             uiThread {
-                roomSlotAdapter.setList(list1)
+                labSlotAdapter.setList(list1)
             }
         }
     }

@@ -67,17 +67,12 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
             var dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in TextView
                 holder.date.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt()+1).toString() + " / " + year)
-                var monthnumber = (monthOfYear+1).toString()
+                var monthnumber = ""
                 var correctMonth = monthOfYear+1
                 if(correctMonth < 10){
                     monthnumber = "0$correctMonth"
                 }
-                var dd =dayOfMonth.toString()
-                var correctdd = dayOfMonth
-                if(correctdd<10){
-                    dd = "0$correctdd"
-                }
-                date1 = dd + monthnumber + year.toString()
+                date1 = dayOfMonth.toString() + monthnumber + year.toString()
             }, year, month, day)
 
             val now = System.currentTimeMillis() - 1000

@@ -9,8 +9,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:padding="10dp"
+        android:layout_margin="20dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         android:background="@drawable/cardviewborder"
@@ -27,25 +26,24 @@
             <TextView
                 android:id="@+id/slot"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:background="@color/yellow"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="Slot"
-                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
             <android.widget.Button
                 android:id="@+id/bookButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginTop="4dp"
+                android:padding="5dp"
                 android:text="Already Booked"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/slot"
                 android:backgroundTint="@null"
                 android:background="@drawable/button_color"

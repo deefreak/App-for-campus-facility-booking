@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -54,8 +55,8 @@ class RoomSlotActivity : AppCompatActivity() {
 
 
                     recyclerView.adapter = roomSlotAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(this)
-
+//                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView.layoutManager = GridLayoutManager(this, 2)
                     fetchToDoList(list)
 
                 }
