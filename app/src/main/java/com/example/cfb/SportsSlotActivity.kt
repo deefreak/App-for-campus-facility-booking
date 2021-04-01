@@ -75,7 +75,7 @@ class SportsSlotActivity : AppCompatActivity() {
                 list1.add(pair)
             }
 
-            (recyclerView.adapter as RoomSlotAdapter).notifyDataSetChanged()
+            (recyclerView.adapter as SportsSlotAdapter).notifyDataSetChanged()
 
             uiThread {
                 sportsSlotAdapter.setList(list1)

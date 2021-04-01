@@ -33,8 +33,24 @@ class ConfirmBookingActivity : AppCompatActivity() {
         val purpose: TextInputLayout = findViewById(R.id.purpose)
         var confirmButton: Button = findViewById(R.id.confirmButton)
 
+        var date2 = ""
+        var j = 0
+        var i =0
+        var n = date.length
+        while(j<n) {
+            if (i == 2 || i == 5){
+                date2 = "$date2/"
+                i++
+            }
+            else{
+                date2 += date[j]
+                j++
+                i++
+            }
+        }
+
         nameText.editText?.setText(name)
-        dateText.editText?.setText(date)
+        dateText.editText?.setText(date2)
         emailText.editText?.setText(email)
         slotText.editText?.setText(slot)
         facilityNameText.editText?.setText(facilityName)
@@ -48,6 +64,7 @@ class ConfirmBookingActivity : AppCompatActivity() {
         confirmButton.setOnClickListener {
             val firestore = FirebaseFirestore.getInstance()
             val list: MutableList<ClassRoom> = mutableListOf()
+            val list1: MutableList<Sport> = mutableListOf()
             var type=""
             firestore.collection(date).document(facilityName).get()
                 .addOnSuccessListener {
@@ -55,10 +72,17 @@ class ConfirmBookingActivity : AppCompatActivity() {
                     firestore.collection(type).whereEqualTo("Name", facilityName).get()
                         .addOnSuccessListener {
                             for (document in it) {
-                                list.add(document.toObject(ClassRoom::class.java))
-
+                                if(type == "ClassRooms") {
+                                    list.add(document.toObject(ClassRoom::class.java))
+                                }
+                                else if(type == "Sports"){
+                                    list1.add(document.toObject(Sport::class.java))
+                                }
                             }
-                            var buildingName = list[0].BuildingName
+                            var buildingName = ""
+                            if(type == "ClassRooms") {
+                                buildingName = list[0].BuildingName
+                            }
                             val purposeText = purpose.editText?.text.toString()
                             val bookingHistory = BookingHistory(
                                 email,

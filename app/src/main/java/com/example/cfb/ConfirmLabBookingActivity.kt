@@ -33,8 +33,24 @@ class ConfirmLabBookingActivity : AppCompatActivity() {
         val purpose: TextInputLayout = findViewById(R.id.purpose)
         var confirmButton: Button = findViewById(R.id.confirmButton)
 
+        var date2 = ""
+        var j = 0
+        var i =0
+        var n = date.length
+        while(j<n) {
+            if (i == 2 || i == 5){
+                date2 = "$date2/"
+                i++
+            }
+            else{
+                date2 += date[j]
+                j++
+                i++
+            }
+        }
+
         nameText.editText?.setText(name)
-        dateText.editText?.setText(date)
+        dateText.editText?.setText(date2)
         emailText.editText?.setText(email)
         slotText.editText?.setText(slot)
         facilityNameText.editText?.setText(facilityName)

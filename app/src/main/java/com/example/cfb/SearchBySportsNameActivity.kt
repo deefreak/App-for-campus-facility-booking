@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Button
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -49,13 +49,43 @@ class SearchBySportsNameActivity : AppCompatActivity() {
         }
 
 
+
+
         val name: TextInputLayout = findViewById(R.id.name)
 
         name.error = null
         pickedDate.error = null
+        name.isEnabled = false
+
+        val spinner: Spinner = findViewById(R.id.spinner)
+
 
 
         val firestore = FirebaseFirestore.getInstance()
+        val sportNames: MutableList<String> = mutableListOf()
+        firestore.collection("Sports").get()
+            .addOnSuccessListener {
+                for(document in it){
+                    val sport = document.toObject(Sport::class.java)
+                    sportNames.add(sport.Name)
+                }
+                val adapter = ArrayAdapter(applicationContext,
+                    android.R.layout.simple_spinner_dropdown_item, sportNames)
+                spinner.adapter = adapter
+
+                spinner.onItemSelectedListener = object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>,
+                                                view: View, position: Int, id: Long) {
+                        name.editText?.setText(sportNames[position])
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>) {
+                        // write code to perform some action
+                    }
+                }
+            }
+
         var list: MutableMap<String,String> = mutableMapOf()
         search.setOnClickListener {
             if(TextUtils.isEmpty(name.editText?.text.toString())){
