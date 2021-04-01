@@ -33,6 +33,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".SearchByClassRoomNameActivity" />
+        <activity android:name=".SearchBySportsNameActivity"/>
+        <activity android:name=".SportsSlotActivity"/>
+        <activity android:name=".SportsBookingActivity"/>
     </application>
 
 </manifest>
