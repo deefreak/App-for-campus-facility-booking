@@ -40,7 +40,7 @@ class SearchByLabNameActivity : AppCompatActivity() {
                 // Display Selected date in TextView
                 pickedDate.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt() + 1).toString() + " / " + year)
                 var daynumber = ""
-                var monthnumber = ""
+                var monthnumber = (monthOfYear+1).toString()
                 var correctMonth = monthOfYear + 1
                 if (correctMonth < 10) {
                     monthnumber = "0$correctMonth"
