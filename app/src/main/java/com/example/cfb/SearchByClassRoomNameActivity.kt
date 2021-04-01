@@ -5,10 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Button
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import org.jetbrains.anko.editText
 import java.util.*
 
 class SearchByClassRoomNameActivity : AppCompatActivity() {
@@ -47,46 +48,109 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
             dpd.show()
         }
 
-
+        val firestore = FirebaseFirestore.getInstance()
         val name: TextInputLayout = findViewById(R.id.name)
+        val building: TextInputLayout = findViewById(R.id.building)
+
+        val spinner1 = findViewById<Spinner>(R.id.spinner1)
 
         name.error = null
         pickedDate.error = null
+        building.error = null
+        name.isEnabled = false
+        building.isEnabled = false
+
+        var buildings = resources.getStringArray(R.array.Buildings)
+
+        var classList: MutableList<String> = mutableListOf()
 
 
-        val firestore = FirebaseFirestore.getInstance()
-        var list: MutableMap<String,String> = mutableMapOf()
-        search.setOnClickListener {
-            if(TextUtils.isEmpty(name.editText?.text.toString())){
-                name.error = "Please Enter a Classroom name"
-                return@setOnClickListener
-            }
-            if(TextUtils.isEmpty(pickedDate.editText?.text.toString())){
-                pickedDate.error = "Please Enter a Date for Booking"
-                return@setOnClickListener
-            }
+        if (spinner1 != null) {
+            val adapter = ArrayAdapter(this,
+                    android.R.layout.simple_spinner_dropdown_item, buildings)
+            spinner1.adapter = adapter
 
-            firestore.collection(date).document(name.editText?.text.toString()).get()
-                .addOnSuccessListener {
-                    if(it.exists()) {
-                        var result = it.data
+            spinner1.onItemSelectedListener = object :
+                    AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>,
+                                            view: View, position: Int, id: Long) {
+                    building.editText?.setText(buildings[position])
+                    name.editText?.setText("")
+                    classList.clear()
+                    firestore.collection("ClassRooms").whereEqualTo("BuildingName",building.editText?.text.toString()).get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    val doc = document.toObject(ClassRoom::class.java)
+                                    classList.add(doc.Name)
+                                }
+                                val spinner = findViewById<Spinner>(R.id.spinner)
 
-                        if (result != null) {
+                                val adapter1 = ArrayAdapter(applicationContext,
+                                        android.R.layout.simple_spinner_dropdown_item, classList)
+                                spinner.adapter = adapter1
 
-                            val intent = Intent(this,RoomSlotActivity::class.java)
+                                spinner.onItemSelectedListener = object :
+                                        AdapterView.OnItemSelectedListener {
+                                    override fun onItemSelected(parent: AdapterView<*>,
+                                                                view: View, position: Int, id: Long) {
+                                        name.editText?.setText(classList[position])
+                                    }
 
+                                    override fun onNothingSelected(parent: AdapterView<*>) {
+                                        // write code to perform some action
+                                    }
+                                }
 
-                            intent.putExtra("date", date)
-                            intent.putExtra("name",name.editText?.text.toString())
-                            startActivity(intent)
-                        }
-                    }
-                    else{
-                        Toast.makeText(this,"No Such Room Exists Or Room is Not Available for Booking on this Particular Date",Toast.LENGTH_LONG).show()
-                    }
+                            }
 
                 }
 
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+
+
+
+
+
+
+
+
+
+            var list: MutableMap<String, String> = mutableMapOf()
+            search.setOnClickListener {
+                if (TextUtils.isEmpty(name.editText?.text.toString())) {
+                    name.error = "Please Enter a Classroom name"
+                    return@setOnClickListener
+                }
+                if (TextUtils.isEmpty(pickedDate.editText?.text.toString())) {
+                    pickedDate.error = "Please Enter a Date for Booking"
+                    return@setOnClickListener
+                }
+
+                firestore.collection(date).document(name.editText?.text.toString()).get()
+                        .addOnSuccessListener {
+                            if (it.exists()) {
+                                var result = it.data
+
+                                if (result != null) {
+
+                                    val intent = Intent(this, RoomSlotActivity::class.java)
+
+
+                                    intent.putExtra("date", date)
+                                    intent.putExtra("name", name.editText?.text.toString())
+                                    startActivity(intent)
+                                }
+                            } else {
+                                Toast.makeText(this, "No Such Room Exists Or Room is Not Available for Booking on this Particular Date", Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+
+            }
         }
     }
+
 }

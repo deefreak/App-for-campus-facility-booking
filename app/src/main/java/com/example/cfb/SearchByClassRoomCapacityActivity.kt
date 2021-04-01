@@ -3,8 +3,8 @@ package com.example.cfb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -18,6 +18,26 @@ class SearchByClassRoomCapacityActivity : AppCompatActivity() {
         val search: Button = findViewById(R.id.searchButton)
 
         val capacity: TextInputLayout = findViewById(R.id.capacity)
+
+        val spinner = findViewById<Spinner>(R.id.spinner1)
+        capacity.isEnabled = false
+
+        val strength = resources.getStringArray(R.array.Capacity)
+        val adapter1 = ArrayAdapter(applicationContext,
+                android.R.layout.simple_spinner_dropdown_item, strength)
+        spinner.adapter = adapter1
+
+        spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                capacity.editText?.setText(strength[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
         val firestore = FirebaseFirestore.getInstance()
         var c = 0

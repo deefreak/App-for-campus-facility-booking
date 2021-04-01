@@ -37,7 +37,7 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         sportBooking.setOnClickListener {
-            val intent = Intent(this,ClassRoomBookingActivity::class.java)
+            val intent = Intent(this,SportsBookingActivity::class.java)
             startActivity(intent)
         }
 
