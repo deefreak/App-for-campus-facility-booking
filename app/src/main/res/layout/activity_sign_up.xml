@@ -4,18 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#3192F4"
+    android:background="#FFFFFF"
     tools:context=".SignUpActivity">
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/triangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/trianglee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/ic_rocket"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="140dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_text"
@@ -171,18 +190,19 @@
 
     <android.widget.Button
         android:id="@+id/signup_button"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:background="@drawable/button_shape"
-        android:padding="15dp"
         android:text="Sign Up"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/confirm_password_text"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.263" />
 
     <ProgressBar
         android:id="@+id/sign_up_progress"
@@ -201,7 +221,7 @@
         android:layout_height="wrap_content"
         android:text="@string/already_an_user_click_here_to_login"
         android:layout_marginBottom="20dp"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

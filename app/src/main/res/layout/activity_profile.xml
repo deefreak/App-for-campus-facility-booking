@@ -25,7 +25,7 @@
             app:civ_border_color="#ffffff"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/lady"/>
+            android:src="@drawable/ic_people"/>
 
 <!--        <TextView-->
 <!--            android:id="@+id/person_name"-->
