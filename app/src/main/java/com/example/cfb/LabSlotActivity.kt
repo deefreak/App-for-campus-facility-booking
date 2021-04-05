@@ -3,6 +3,7 @@ package com.example.cfb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LabSlotActivity : AppCompatActivity() {
 
@@ -25,7 +28,7 @@ class LabSlotActivity : AppCompatActivity() {
 
         var text: TextView = findViewById(R.id.text)
         text.text = "Booking Slots For $name"
-
+        val time = SimpleDateFormat("ddmmyyyyHHmmss").format(Date())
 
         val firestore = FirebaseFirestore.getInstance()
         var list: MutableMap<String,String> = mutableMapOf()
@@ -57,7 +60,7 @@ class LabSlotActivity : AppCompatActivity() {
 //                    recyclerView.layoutManager = LinearLayoutManager(this)
                     recyclerView.layoutManager = GridLayoutManager(this, 2)
 
-                    fetchToDoList(list)
+                    fetchToDoList(list,time)
 
                 }
 
@@ -68,15 +71,25 @@ class LabSlotActivity : AppCompatActivity() {
             }
     }
 
-    private fun fetchToDoList(list: MutableMap<String,String>) {
+    private fun fetchToDoList(list: MutableMap<String,String>,time: String) {
         doAsync {
             var list1: MutableList<Pair<String,String>> = mutableListOf()
             val fireStore = FirebaseFirestore.getInstance()
-
+            val currentTime = time.substring(8,10)
 
             for ((key,value) in list){
-                var pair = Pair(key,value)
-                list1.add(pair)
+                var slot = ""
+                if(key[6] == 'p'){
+                    slot = (key.substring(4,6).toInt() + 12).toString()
+                }
+                else{
+                    slot = key.substring(4,6)
+                }
+                Log.d("slot",slot)
+                if(slot.toInt() > currentTime.toInt()) {
+                    var pair = Pair(key, value)
+                    list1.add(pair)
+                }
             }
 
             (recyclerView.adapter as LabSlotAdapter).notifyDataSetChanged()

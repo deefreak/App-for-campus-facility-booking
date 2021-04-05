@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +24,7 @@ class HomePageActivity : AppCompatActivity() {
        val editProfile: Button = findViewById(R.id.editProfileB)
         val auth = FirebaseAuth.getInstance()
         val logout: ImageView = findViewById(R.id.logout)
+
 
         editProfile.setOnClickListener {
             val intent = Intent(this,ProfileActivity::class.java)
