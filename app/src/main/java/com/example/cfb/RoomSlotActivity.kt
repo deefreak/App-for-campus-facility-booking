@@ -88,12 +88,7 @@ class RoomSlotActivity : AppCompatActivity() {
 
             for ((key,value) in list){
                 if(currentdate.toInt() == date.toInt()) {
-                    var slot = ""
-                    if (key[6] == 'p') {
-                        slot = (key.substring(4, 6).toInt() + 12).toString()
-                    } else {
-                        slot = key.substring(4, 6)
-                    }
+                    var slot = key.substring(4,6)
                     Log.d("slot", slot)
                     if (slot.toInt() > currentTime.toInt()) {
                         var pair = Pair(key, value)

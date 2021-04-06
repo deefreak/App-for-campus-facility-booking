@@ -66,59 +66,26 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                 if(currentDate.toInt() == date1.toInt()){
                     var time = SimpleDateFormat("HHmmss").format(Date())
                     var currenthour = time.substring(0,2)
-                    val index = slot.indexOf(":",0,false)
                     var startTime = ""
                     var endTime = ""
                     Log.d("curti",currenthour)
-                    if(index == 1){
-                        if(slot[5] == 'P') {
-                            startTime = (slot[0].toInt() + 12).toString()
-                        }
-                        else{
-                            startTime = slot[0].toString()
-                        }
-                        var secindex = slot.indexOf(":",5,false)
-                        if(secindex == 11){
-                            if(slot[15] == 'P') {
-                                endTime = (slot[10].toInt() + 12).toString()
-                            }
-                            else{
-                                endTime = slot[10].toString()
-                            }
-                        }
-                        else{
-                            if(slot[16] == 'P') {
-                                endTime = (slot.substring(10, 12).toInt() + 12).toString()
-                            }
-                            else{
-                                endTime = slot.substring(10, 12)
-                            }
-                        }
+                    if(slot[5] == 'A'){
+                        startTime = slot.substring(0,2)
                     }
-                    else if(index == 2){
-                        if(slot[6] == 'P') {
-                            startTime = (slot.substring(0,2).toInt() + 12).toString()
-                        }
-                        else{
-                            startTime = slot.substring(0,2)
-                        }
-                        var secindex = slot.indexOf(":",5,false)
-                        if(secindex == 12){
-                            if(slot[16] == 'P') {
-                                endTime = (slot[11].toInt() + 12).toString()
-                            }
-                            else{
-                                endTime = slot[11].toString()
-                            }
-                        }
-                        else{
-                            if(slot[17] == 'P') {
-                                endTime = (slot.substring(11, 13).toInt() + 12).toString()
-                            }
-                            else{
-                                endTime = slot.substring(11, 13)
-                            }
-                        }
+                    else{
+                        startTime = (slot.substring(0,2).toInt() + 12).toString()
+                    }
+                    if(startTime == "24"){
+                        startTime = "12"
+                    }
+                    if(slot[15] == 'A'){
+                        endTime = slot.substring(10,12)
+                    }
+                    else{
+                        endTime = (slot.substring(10,12).toInt() + 12).toString()
+                    }
+                    if(endTime == "24"){
+                        endTime = "12"
                     }
                     Log.d("startTime",startTime)
                     Log.d("endTime",endTime)

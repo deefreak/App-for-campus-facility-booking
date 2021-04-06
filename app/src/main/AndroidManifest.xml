@@ -36,6 +36,7 @@
         <activity android:name=".SearchBySportsNameActivity"/>
         <activity android:name=".SportsSlotActivity"/>
         <activity android:name=".SportsBookingActivity"/>
+        <activity android:name=".ConfirmLabBookingActivity"/>
     </application>
 
 </manifest>

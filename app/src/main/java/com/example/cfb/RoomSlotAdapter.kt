@@ -48,24 +48,39 @@ class RoomSlotAdapter(var context: Context, var slots: MutableList<Pair<String,S
 
         var endTime = details.substring(4,6)
 
-        if(startTime[0] == '0'){
-            startTime = startTime[1].toString()
-        }
-        if(endTime[0] == '0'){
-            endTime = endTime[1].toString()
-        }
 
-        if(details[6] == 'p'){
-            slotText = "$startTime:00 PM - $endTime:00 PM"
-            holder.slot.text = "Slot: "+ startTime + ":00 PM - "+ endTime + ":00 PM"
+        if(startTime.toInt() > 12){
+            startTime = (startTime.toInt()-12).toString()
+            if(startTime.length == 1){
+                startTime = "0$startTime"
+            }
+            startTime += ":00PM"
+        }
+        else if(startTime.toInt() == 12){
+            startTime += ":00PM"
         }
         else{
-            slotText = "$startTime:00 AM - $endTime:00 AM"
-            holder.slot.text = "Slot: "+ startTime + ":00 AM - "+ endTime + ":00 AM"
+            startTime += ":00AM"
+        }
+        if(endTime.toInt() > 12){
+            endTime = (endTime.toInt()-12).toString()
+            if(endTime.length == 1){
+                endTime = "0$endTime"
+            }
+            endTime += ":00PM"
+        }
+        else if(endTime.toInt() == 12){
+            endTime += ":00PM"
+        }
+        else{
+            endTime += ":00AM"
         }
 
+        holder.slot.text = startTime + " - " + endTime
+        slotText = startTime + " - " + endTime
 
-
+        Log.d("startti",startTime)
+        Log.d("endti",endTime)
 
         var status = slots[position].second
         if (status == "available"){

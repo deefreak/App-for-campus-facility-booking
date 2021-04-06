@@ -2,6 +2,7 @@ package com.example.cfb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SportsSlotActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
@@ -23,6 +26,8 @@ class SportsSlotActivity : AppCompatActivity() {
 
         var text: TextView = findViewById(R.id.text)
         text.text = "Booking Slots For $name"
+        val time = SimpleDateFormat("ddMMyyyyHHmmss").format(Date())
+        val currentdate = time.substring(0,8)
 
 
         val firestore = FirebaseFirestore.getInstance()
@@ -54,7 +59,7 @@ class SportsSlotActivity : AppCompatActivity() {
                     recyclerView.adapter = sportsSlotAdapter
 //                    recyclerView.layoutManager = LinearLayoutManager(this)
                     recyclerView.layoutManager = GridLayoutManager(this, 2)
-                    fetchToDoList(list)
+                    fetchToDoList(list,time,currentdate,date)
 
                 }
 
@@ -65,17 +70,26 @@ class SportsSlotActivity : AppCompatActivity() {
             }
     }
 
-    private fun fetchToDoList(list: MutableMap<String,String>) {
+    private fun fetchToDoList(list: MutableMap<String,String>,time: String,currentdate: String,date: String) {
         doAsync {
             var list1: MutableList<Pair<String,String>> = mutableListOf()
             val fireStore = FirebaseFirestore.getInstance()
 
 
-            for ((key,value) in list){
-                var pair = Pair(key,value)
-                list1.add(pair)
+            val currentTime = time.substring(8,10)
+            for((key,value) in list) {
+                if (currentdate.toInt() == date.toInt()) {
+                    var slot = key.substring(4, 6)
+                    Log.d("slot", slot)
+                    if (slot.toInt() > currentTime.toInt()) {
+                        var pair = Pair(key, value)
+                        list1.add(pair)
+                    }
+                } else {
+                    val pair = Pair(key, value)
+                    list1.add(pair)
+                }
             }
-
             (recyclerView.adapter as SportsSlotAdapter).notifyDataSetChanged()
 
             uiThread {
