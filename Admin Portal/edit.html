@@ -20,27 +20,13 @@
     margin-top:31px;
 }
 
-#preloader{
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  background: #fff url('css/images/Spinner-3.gif') no-repeat center;
-  z-index: 9999;
-  display: flex;
-}
-body{
-    background: #afcaca;
-}
+
 
 </style>
 
 <body  onload = "readTask()">
-
-    <div id = "preloader">
-
-    </div>
     <!-- nav bar started -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Admin Portal</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +62,20 @@ body{
 
     <!-- add new classroom  modal  -->
     <div id = "ClassSection" class="row row-cols-1 row-cols-md-3 g-4">
-     
+      <div class="col col-class1">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Class Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Building Name</h6>
+            <p class="card-text">Class Name is present in Building Name with strength of 100.</p>
+            <button type="submit" style ="color:white" class = "btn btn-warning" ><i class = "fas
+            fa=edit"></i>Edit</button>
+            <button type = "submit" class = "btn btn-danger" >
+            <i class = "fas fa-trash-alt"></i>Delete</button>
+             
+          </div>
+        </div>  
+      </div>
 
      
     </div>

@@ -14,19 +14,9 @@
     <title>Classrooms</title>
 </head>
 
-<style>
-  *{
-    @import url('https://fonts.googleapis.com/css2?family=Lexend&family=PT+Sans&family=PT+Serif:ital@1&display=swap');
-    /* font-family: 'PT Serif', serif; */
-  }
-
-body{
-    background: #afcaca;
-}
-</style>
 <body>
     <!-- nav bar started -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Admin Portal</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +51,12 @@ body{
     <!-- nav bar ended -->
 
     <!-- add new classroom  modal  -->
-    <div style=" text-align: center;width: 100%;" class="container">
-        <button style = "width: 350px;margin: 10px;font-size: 30px;" type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div style="text-align: center;" class="container">
+        <button style = "width: 350px;margin: 10px;" type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add New Classroom
         </button>
         <br>
-        <a style = "width: 350px;margin: 10px; font-size:30px" class="btn btn-outline-dark" href="edit.html" role="button">Edit Classroom</a>
+        <a style = "width: 350px;margin: 10px;" class="btn btn-outline-info" href="edit.html" role="button">Edit Classroom</a>
 
 
     </div>
@@ -77,10 +67,10 @@ body{
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create New Class</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div style = "background: #afcaca; "class="modal-body">
+                <div class="modal-body">
                     <form id = "classroom_add_id">
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">Building Name</label>

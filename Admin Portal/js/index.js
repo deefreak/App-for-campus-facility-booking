@@ -98,22 +98,21 @@ function updateTask2(id,buildingname,department,name,strength)
 
 function readTask()
 {
-       
     firebase.firestore().collection("ClassRooms").onSnapshot(function(snapshot){
         document.getElementById("ClassSection").innerHTML='';
         snapshot.forEach(function(taskValue){
             document.getElementById("ClassSection").innerHTML+= `<div class="col col-class1">
-            <div class="card" style="background:#8f9c9c; width: 18rem;min-height: 215px;">
+            <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">${taskValue.data().Name}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${taskValue.data().BuildingName}</h6>
-                <p style = "font-style: italic;font-family: revert;font-weight: bolder;" class="card-text">${taskValue.data().Name} is present in ${taskValue.data().BuildingName} with strength of ${taskValue.data().Strength}</p>
+                <p class="card-text">${taskValue.data().Name} is present in ${taskValue.data().BuildingName} with strength of ${taskValue.data().Strength}</p>
                 
-                <button type="submit" style ="color:white" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "btn btn-outline-warning" 
+                <button type="submit" style ="color:white" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "btn btn-warning" 
                 onclick = "updateTask('${taskValue.id}','${taskValue.data().Name}' , '${taskValue.data().BuildingName}','${taskValue.data().Department}','${taskValue.data().Strength}')"><i class = "fas
                 fa=edit"></i>Edit</button>
                 
-                <button type = "submit" class = "btn btn-outline-danger" onclick = "deleteTask('${taskValue.id}')">
+                <button type = "submit" class = "btn btn-danger" onclick = "deleteTask('${taskValue.id}')">
                 <i class = "fas fa-trash-alt"></i>Delete</button>
                  
               </div>
@@ -125,6 +124,61 @@ function readTask()
 
 
     });
-    document.getElementById('preloader').style.display= 'none';
 }
 
+
+
+function readUsers()
+{
+    firebase.firestore().collection("Users").onSnapshot(function(snapshot){
+        document.getElementById("UserSection").innerHTML='';
+        snapshot.forEach(function(taskValue){
+            document.getElementById("UserSection").innerHTML+= `<div class="col col-class1">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">${taskValue.data().name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${taskValue.data().email}</h6>
+                <p class="card-text">${taskValue.data().mobile}</p>
+                <button type = "submit" class = "btn btn-danger" onclick="sendemail('${taskValue.data().email}')" > 
+                <i class = "fas fa-trash-alt"></i>View History</button>
+              </div>
+            </div>  
+          </div>
+            `
+
+        });
+
+
+    });
+}
+
+function sendemail(email)
+{
+    localStorage.setItem("emailfromuser",email)
+    window.location.href='/booking_history.html'
+}
+
+function readhistory()
+{
+    var mail = localStorage.getItem("emailfromuser")
+    firebase.firestore().collection("BookingHistory").onSnapshot(function(snapshot){
+        document.getElementById("HistorySection").innerHTML='';
+        snapshot.forEach(function(taskValue){
+            if(taskValue.data().bookedBy==mail){
+            document.getElementById("HistorySection").innerHTML+= `<div class="col col-class1">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">${taskValue.data().building}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${taskValue.data().facilityName}</h6>
+                <p class="card-text">${taskValue.data().date}</p>
+                
+              </div>
+            </div>  
+          </div>
+            `
+            }
+        });
+
+
+    });
+}
