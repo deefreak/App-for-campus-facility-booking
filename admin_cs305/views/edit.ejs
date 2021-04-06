@@ -25,42 +25,51 @@
 </style>
 
 <body  onload = "readTask()">
-    <!-- nav bar started -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="https://www.w3schools.com/images/w3schools_green.jpg" width="30" height="24" class="d-inline-block align-top">
+          <b>Admin Portal</b>
+        </a>
+      </div>
+      <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Admin Portal</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="#">:)</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/"><b>HOME</b></a>
+                  </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" aria-current="page" href="/users"><b>USERS</b></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/users">Users</a>
+                <a class="nav-link active" aria-current="page" href="/classrooms"><b>CLASSROOMS</b></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/classrooms">Classrooms</a>
+                <a class="nav-link" aria-current="page" href="#"><b>SPORTS</b></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Sports</a>
+                <a class="nav-link" aria-current="page" href="#"><b>LABS</b></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Labs</a>
+                <a class="nav-link" aria-current="page" href="#"><b>ATTENDANCE</b></a>
               </li>
-              
             </ul>
-            <!-- <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
+            <span class="navbar-text">
+              Campus Facility Booking
+            </span>
           </div>
         </div>
-      </nav>
-    <!-- nav bar ended -->
+      <!-- </nav> -->
+  </nav>
 
     <!-- add new classroom  modal  -->
+    <div class="col d-flex justify-content-center">
     <% for(let classroom of classroomArray) { %> 
     <div id = "ClassSection" class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col col-class1">
@@ -71,15 +80,12 @@
             <p class="card-text"><%=classroom.Name%> is present in <%=classroom.BuildingName%> with strength of <%=classroom.Strength%></p>
             <a href="" class="btn btn-primary">Edit</a>
             <a href="" class="btn btn-danger">Delete</a>
-            
-             
           </div>
         </div>  
       </div>
-
-     
     </div>
     <% } %>
+    </div>
   <!-- modal button -->
  
 
