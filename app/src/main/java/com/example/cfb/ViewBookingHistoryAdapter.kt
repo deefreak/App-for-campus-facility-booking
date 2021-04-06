@@ -123,11 +123,11 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                     Log.d("startTime",startTime)
                     Log.d("endTime",endTime)
 
-                    if(currenthour < startTime) {
+                    if(currenthour.toInt() < startTime.toInt()) {
                         holder.statusButton.text = "Upcoming"
                         holder.statusButton.setBackgroundColor(Color.BLUE)
                     }
-                    else if(currenthour >= startTime && currenthour <endTime){
+                    else if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
                         holder.statusButton.text = "OnGoing"
                         holder.statusButton.setBackgroundColor(Color.GREEN)
                     }

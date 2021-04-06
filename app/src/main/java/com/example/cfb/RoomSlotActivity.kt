@@ -30,8 +30,10 @@ class RoomSlotActivity : AppCompatActivity() {
         var text: TextView = findViewById(R.id.text)
         text.text = "Booking Slots For $name"
 
-        val time = SimpleDateFormat("ddmmyyyyHHmmss").format(Date())
-
+        val time = SimpleDateFormat("ddMMyyyyHHmmss").format(Date())
+        val currentdate = time.substring(0,8)
+        Log.d("curdat",currentdate)
+        Log.d("dat",date)
 
         val firestore = FirebaseFirestore.getInstance()
         var list: MutableMap<String,String> = mutableMapOf()
@@ -62,7 +64,7 @@ class RoomSlotActivity : AppCompatActivity() {
                     recyclerView.adapter = roomSlotAdapter
 //                    recyclerView.layoutManager = LinearLayoutManager(this)
                     recyclerView.layoutManager = GridLayoutManager(this, 2)
-                    fetchToDoList(list,time)
+                    fetchToDoList(list,time,currentdate,date)
 
                 }
 
@@ -73,7 +75,7 @@ class RoomSlotActivity : AppCompatActivity() {
             }
     }
 
-    private fun fetchToDoList(list: MutableMap<String,String>,time: String) {
+    private fun fetchToDoList(list: MutableMap<String,String>,time: String,currentdate: String,date: String) {
         doAsync {
             var list1: MutableList<Pair<String,String>> = mutableListOf()
             val fireStore = FirebaseFirestore.getInstance()
@@ -85,16 +87,21 @@ class RoomSlotActivity : AppCompatActivity() {
             Log.d("curtim",currentTime)
 
             for ((key,value) in list){
-                var slot = ""
-                if(key[6] == 'p'){
-                    slot = (key.substring(4,6).toInt() + 12).toString()
+                if(currentdate.toInt() == date.toInt()) {
+                    var slot = ""
+                    if (key[6] == 'p') {
+                        slot = (key.substring(4, 6).toInt() + 12).toString()
+                    } else {
+                        slot = key.substring(4, 6)
+                    }
+                    Log.d("slot", slot)
+                    if (slot.toInt() > currentTime.toInt()) {
+                        var pair = Pair(key, value)
+                        list1.add(pair)
+                    }
                 }
                 else{
-                    slot = key.substring(4,6)
-                }
-                Log.d("slot",slot)
-                if(slot.toInt() > currentTime.toInt()) {
-                    var pair = Pair(key, value)
+                    var pair = Pair(key,value)
                     list1.add(pair)
                 }
             }
