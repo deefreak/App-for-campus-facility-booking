@@ -1,13 +1,14 @@
-package com.example.cfb
+package com.example.cfb.ClassroomBooking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cfb.Adapters.ViewRoomByCapacityAdapter
+import com.example.cfb.R
+import com.example.cfb.models.ClassRoom
 import com.google.firebase.firestore.FirebaseFirestore
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 class ViewRoomByCapacityActivity : AppCompatActivity() {
 
@@ -35,7 +36,7 @@ class ViewRoomByCapacityActivity : AppCompatActivity() {
                 var list1: MutableList<ClassRoom> = mutableListOf()
 
                 recyclerView = findViewById(R.id.recyclerCapacity)
-                viewRoomByCapacityAdapter = ViewRoomByCapacityAdapter(this,list)
+                viewRoomByCapacityAdapter = ViewRoomByCapacityAdapter(this, list)
 
 
                 recyclerView.adapter = viewRoomByCapacityAdapter

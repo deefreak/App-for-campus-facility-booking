@@ -1,21 +1,24 @@
-package com.example.cfb
+package com.example.cfb.LabBooking
 
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.Button
+import android.widget.Toast
 import android.view.View
 import android.widget.*
+import com.example.cfb.R
+import com.example.cfb.models.LabRoom
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
-import org.jetbrains.anko.editText
 import java.util.*
 
-class SearchByClassRoomNameActivity : AppCompatActivity() {
+class SearchByLabNameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_by_class_room_name)
+        setContentView(R.layout.activity_search_by_lab_name)
 
         val search: Button = findViewById(R.id.searchButton)
 
@@ -33,7 +36,7 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
         datePicker.setOnClickListener {
             var dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in TextView
-                pickedDate.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt()+1).toString() + " / " + year)
+                pickedDate.editText?.setText("" + dayOfMonth + " / " + (monthOfYear.toInt() + 1).toString() + " / " + year)
                 var daynumber = ""
                 var monthnumber = (monthOfYear+1).toString()
                 var correctMonth = monthOfYear + 1
@@ -45,11 +48,12 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
                     date = daynumber + monthnumber + year.toString()
                 }
                 else {date = dayOfMonth.toString() + monthnumber + year.toString()}
+
             }, year, month, day)
 
             val now = System.currentTimeMillis() - 1000
             //dpd.datePicker.minDate = now
-            dpd.datePicker.maxDate = now + (1000*60*60*24*7)
+            dpd.datePicker.maxDate = now + (1000 * 60 * 60 * 24 * 7)
             dpd.show()
         }
 
@@ -67,7 +71,7 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
 
         var buildings = resources.getStringArray(R.array.Buildings)
 
-        var classList: MutableList<String> = mutableListOf()
+        var labList: MutableList<String> = mutableListOf()
 
 
         if (spinner1 != null) {
@@ -77,28 +81,29 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
 
             spinner1.onItemSelectedListener = object :
                     AdapterView.OnItemSelectedListener {
+
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View, position: Int, id: Long) {
                     building.editText?.setText(buildings[position])
                     name.editText?.setText("")
-                    classList.clear()
-                    firestore.collection("ClassRooms").whereEqualTo("BuildingName",building.editText?.text.toString()).get()
+                    labList.clear()
+                    firestore.collection("Labs").whereEqualTo("BuildingName", building.editText?.text.toString()).get()
                             .addOnSuccessListener { documents ->
                                 for (document in documents) {
-                                    val doc = document.toObject(ClassRoom::class.java)
-                                    classList.add(doc.Name)
+                                    val doc = document.toObject(LabRoom::class.java)
+                                    labList.add(doc.Name)
                                 }
                                 val spinner = findViewById<Spinner>(R.id.spinner)
 
                                 val adapter1 = ArrayAdapter(applicationContext,
-                                        android.R.layout.simple_spinner_dropdown_item, classList)
+                                        android.R.layout.simple_spinner_dropdown_item, labList)
                                 spinner.adapter = adapter1
 
                                 spinner.onItemSelectedListener = object :
                                         AdapterView.OnItemSelectedListener {
                                     override fun onItemSelected(parent: AdapterView<*>,
                                                                 view: View, position: Int, id: Long) {
-                                        name.editText?.setText(classList[position])
+                                        name.editText?.setText(labList[position])
                                     }
 
                                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -110,52 +115,45 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
 
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
                 }
-            }
-
-
-
-
-
-
-
-
-
-            var list: MutableMap<String, String> = mutableMapOf()
-            search.setOnClickListener {
-                if (TextUtils.isEmpty(name.editText?.text.toString())) {
-                    name.error = "Please Enter a Classroom name"
-                    return@setOnClickListener
-                }
-                if (TextUtils.isEmpty(pickedDate.editText?.text.toString())) {
-                    pickedDate.error = "Please Enter a Date for Booking"
-                    return@setOnClickListener
-                }
-
-                firestore.collection(date).document(name.editText?.text.toString()).get()
-                        .addOnSuccessListener {
-                            if (it.exists()) {
-                                var result = it.data
-
-                                if (result != null) {
-
-                                    val intent = Intent(this, RoomSlotActivity::class.java)
-
-
-                                    intent.putExtra("date", date)
-                                    intent.putExtra("name", name.editText?.text.toString())
-                                    startActivity(intent)
-                                }
-                            } else {
-                                Toast.makeText(this, "No Such Room Exists Or Room is Not Available for Booking on this Particular Date", Toast.LENGTH_LONG).show()
-                            }
-
-                        }
 
             }
         }
-    }
 
+
+        var list: MutableMap<String, String> = mutableMapOf()
+        search.setOnClickListener {
+            if (TextUtils.isEmpty(name.editText?.text.toString())) {
+                name.error = "Please Enter a Lab name"
+                return@setOnClickListener
+            }
+            if (TextUtils.isEmpty(pickedDate.editText?.text.toString())) {
+                pickedDate.error = "Please Enter a Date for Booking"
+                return@setOnClickListener
+            }
+
+            firestore.collection(date).document(name.editText?.text.toString()).get()
+                    .addOnSuccessListener {
+                        if (it.exists()) {
+                            var result = it.data
+
+                            if (result != null) {
+
+                                val intent = Intent(this, LabSlotActivity::class.java)
+
+
+                                intent.putExtra("date", date)
+                                intent.putExtra("name", name.editText?.text.toString())
+                                startActivity(intent)
+                            }
+                        } else {
+                            Toast.makeText(this, "No Such Room Exists Or Room is Not Available for Booking on this Particular Date", Toast.LENGTH_LONG).show()
+                        }
+
+                    }
+
+        }
+    }
 }

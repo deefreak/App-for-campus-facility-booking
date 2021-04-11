@@ -1,36 +1,24 @@
-package com.example.cfb
+package com.example.cfb.Adapters
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.widget.EditText
-import androidx.core.content.ContextCompat.startActivity
+import com.example.cfb.R
+import com.example.cfb.ClassroomBooking.RoomSlotActivity
+import com.example.cfb.models.ClassRoom
 
 
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.ktx.Firebase
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.find
-import org.w3c.dom.Text
 import java.util.*
 
 
@@ -49,7 +37,7 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
 
 
     }
-    override fun onBindViewHolder(holder: ViewRoomByCapacityAdapter.DetailsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
 
         holder.roomName.text = classlist[position].Name
         holder.departmentName.text = classlist[position].Department
@@ -95,7 +83,7 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
                 holder.date.error = "Date is required"
                 return@setOnClickListener
             }
-            val intent = Intent(context,RoomSlotActivity::class.java)
+            val intent = Intent(context, RoomSlotActivity::class.java)
             intent.putExtra("name",holder.roomName.text as String)
             intent.putExtra("date",dateText)
 
@@ -103,7 +91,7 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
             firestore.collection(dateText).document(holder.roomName.text as String).get()
                 .addOnSuccessListener{
                     if(it.exists()){
-                        val intent = Intent(context,RoomSlotActivity::class.java)
+                        val intent = Intent(context, RoomSlotActivity::class.java)
                         intent.putExtra("name",holder.roomName.text as String)
                         intent.putExtra("date",dateText)
                         context.startActivity(intent)
@@ -122,7 +110,7 @@ class ViewRoomByCapacityAdapter(var context: Context, var classlist: MutableList
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewRoomByCapacityAdapter.DetailsViewHolder {
+    ): DetailsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.room_capacity,parent,false)
         return DetailsViewHolder(itemView)
     }

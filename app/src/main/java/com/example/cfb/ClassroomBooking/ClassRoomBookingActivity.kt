@@ -1,10 +1,12 @@
-package com.example.cfb
+package com.example.cfb.ClassroomBooking
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.example.cfb.HomePageActivity
+import com.example.cfb.R
 
 
 class ClassRoomBookingActivity : AppCompatActivity() {
@@ -17,17 +19,17 @@ class ClassRoomBookingActivity : AppCompatActivity() {
         val goback: ImageView = findViewById(R.id.backB)
 
         searchByRoom.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomNameActivity::class.java)
+            val intent = Intent(this, SearchByClassRoomNameActivity::class.java)
             startActivity(intent)
         }
 
         searchByStrength.setOnClickListener {
-            val intent = Intent(this,SearchByClassRoomCapacityActivity::class.java)
+            val intent = Intent(this, SearchByClassRoomCapacityActivity::class.java)
             startActivity(intent)
         }
 
         goback.setOnClickListener {
-            val intent = Intent(this,HomePageActivity::class.java)
+            val intent = Intent(this, HomePageActivity::class.java)
             startActivity(intent)
         }
 

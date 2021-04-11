@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
+import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
+import com.example.cfb.LabBooking.LabBookingActivity
+import com.example.cfb.SportBooking.SportsBookingActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
-import java.util.*
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,17 +30,17 @@ class HomePageActivity : AppCompatActivity() {
             startActivity(intent)
         }
         classBooking.setOnClickListener {
-            val intent = Intent(this,ClassRoomBookingActivity::class.java)
+            val intent = Intent(this, ClassRoomBookingActivity::class.java)
             startActivity(intent)
         }
 
         labBooking.setOnClickListener {
-            val intent = Intent(this,LabBookingActivity::class.java)
+            val intent = Intent(this, LabBookingActivity::class.java)
             startActivity(intent)
         }
 
         sportBooking.setOnClickListener {
-            val intent = Intent(this,SportsBookingActivity::class.java)
+            val intent = Intent(this, SportsBookingActivity::class.java)
             startActivity(intent)
         }
 

@@ -1,10 +1,11 @@
-package com.example.cfb
+package com.example.cfb.ClassroomBooking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.cfb.R
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -50,7 +51,7 @@ class SearchByClassRoomCapacityActivity : AppCompatActivity() {
                     }
                     if(c == 1){
 
-                            val intent = Intent(this,ViewRoomByCapacityActivity::class.java)
+                            val intent = Intent(this, ViewRoomByCapacityActivity::class.java)
 
                             intent.putExtra("capacity",capacityText)
                             startActivity(intent)

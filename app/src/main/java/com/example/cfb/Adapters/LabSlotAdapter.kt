@@ -1,32 +1,22 @@
-package com.example.cfb
+package com.example.cfb.Adapters
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
-import androidx.core.content.ContextCompat.startActivity
+import com.example.cfb.LabBooking.ConfirmLabBookingActivity
+import com.example.cfb.R
 
 
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.ktx.Firebase
-import org.jetbrains.anko.backgroundColor
 
 
 class LabSlotAdapter(var context: Context, var slots: MutableList<Pair<String,String>>,var date: String,var facilityName: String):
@@ -39,7 +29,7 @@ class LabSlotAdapter(var context: Context, var slots: MutableList<Pair<String,St
 
 
     }
-    override fun onBindViewHolder(holder: LabSlotAdapter.DetailsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
         var slotText = ""
         var details = slots[position].first
 
@@ -116,7 +106,7 @@ class LabSlotAdapter(var context: Context, var slots: MutableList<Pair<String,St
 
                                 if (result != null) {
 
-                                    val intent = Intent(context,ConfirmLabBookingActivity::class.java)
+                                    val intent = Intent(context, ConfirmLabBookingActivity::class.java)
 
 
                                     intent.putExtra("name",result["name"].toString())
@@ -142,7 +132,7 @@ class LabSlotAdapter(var context: Context, var slots: MutableList<Pair<String,St
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LabSlotAdapter.DetailsViewHolder {
+    ): DetailsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.slot_item,parent,false)
         return DetailsViewHolder(itemView)
     }

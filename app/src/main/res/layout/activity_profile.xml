@@ -27,13 +27,13 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_people"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/person_name"-->
-<!--            style="@style/TextName"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:text="@string/full_name" />-->
+        <TextView
+            android:id="@+id/person_name1"
+            style="@style/TextName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/full_name" />
 
     </LinearLayout>
 

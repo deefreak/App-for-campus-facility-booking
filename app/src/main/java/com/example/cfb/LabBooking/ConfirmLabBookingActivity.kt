@@ -1,15 +1,16 @@
-package com.example.cfb
+package com.example.cfb.LabBooking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.example.cfb.HomePageActivity
+import com.example.cfb.R
+import com.example.cfb.models.BookingHistory
+import com.example.cfb.models.LabRoom
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import org.jetbrains.anko.find
 
 class ConfirmLabBookingActivity : AppCompatActivity() {
 
@@ -77,13 +78,13 @@ class ConfirmLabBookingActivity : AppCompatActivity() {
                             var buildingName = list[0].BuildingName
                             val purposeText = purpose.editText?.text.toString()
                             val bookingHistory = BookingHistory(
-                                email,
-                                date,
-                                slot,
-                                name,
-                                facilityName,
-                                purposeText,
-                                buildingName
+                                    email,
+                                    date,
+                                    slot,
+                                    name,
+                                    facilityName,
+                                    purposeText,
+                                    buildingName
                             )
 
                             firestore.collection("BookingHistory").document().set(bookingHistory)

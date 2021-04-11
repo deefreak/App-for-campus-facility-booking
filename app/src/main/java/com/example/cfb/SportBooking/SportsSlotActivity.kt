@@ -1,39 +1,35 @@
-package com.example.cfb
+package com.example.cfb.SportBooking
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cfb.Adapters.SportsSlotAdapter
+import com.example.cfb.R
 import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RoomSlotActivity : AppCompatActivity() {
-
+class SportsSlotActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
-    lateinit var roomSlotAdapter: RoomSlotAdapter
+    lateinit var sportsSlotAdapter: SportsSlotAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_room_slot)
+        setContentView(R.layout.activity_sports_slot)
 
         var name = intent.extras?.get("name") as String
         var date = intent.extras?.get("date") as String
 
-
         var text: TextView = findViewById(R.id.text)
         text.text = "Booking Slots For $name"
-
         val time = SimpleDateFormat("ddMMyyyyHHmmss").format(Date())
         val currentdate = time.substring(0,8)
-        Log.d("curdat",currentdate)
-        Log.d("dat",date)
+
 
         val firestore = FirebaseFirestore.getInstance()
         var list: MutableMap<String,String> = mutableMapOf()
@@ -58,10 +54,10 @@ class RoomSlotActivity : AppCompatActivity() {
 
 
                     recyclerView = findViewById(R.id.recyclerSlots)
-                    roomSlotAdapter = RoomSlotAdapter(this,list1,date,name)
+                    sportsSlotAdapter = SportsSlotAdapter(this, list1, date, name)
 
 
-                    recyclerView.adapter = roomSlotAdapter
+                    recyclerView.adapter = sportsSlotAdapter
 //                    recyclerView.layoutManager = LinearLayoutManager(this)
                     recyclerView.layoutManager = GridLayoutManager(this, 2)
                     fetchToDoList(list,time,currentdate,date)
@@ -69,7 +65,7 @@ class RoomSlotActivity : AppCompatActivity() {
                 }
 
                 else{
-                    Toast.makeText(this,"null",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"null", Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -81,30 +77,24 @@ class RoomSlotActivity : AppCompatActivity() {
             val fireStore = FirebaseFirestore.getInstance()
 
 
-
-
             val currentTime = time.substring(8,10)
-            Log.d("curtim",currentTime)
-
-            for ((key,value) in list){
-                if(currentdate.toInt() == date.toInt()) {
-                    var slot = key.substring(4,6)
+            for((key,value) in list) {
+                if (currentdate.toInt() == date.toInt()) {
+                    var slot = key.substring(4, 6)
                     Log.d("slot", slot)
                     if (slot.toInt() > currentTime.toInt()) {
                         var pair = Pair(key, value)
                         list1.add(pair)
                     }
-                }
-                else{
-                    var pair = Pair(key,value)
+                } else {
+                    val pair = Pair(key, value)
                     list1.add(pair)
                 }
             }
-
-            (recyclerView.adapter as RoomSlotAdapter).notifyDataSetChanged()
+            (recyclerView.adapter as SportsSlotAdapter).notifyDataSetChanged()
 
             uiThread {
-                roomSlotAdapter.setList(list1)
+                sportsSlotAdapter.setList(list1)
             }
         }
     }
