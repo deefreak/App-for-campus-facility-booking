@@ -12,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusFacilityBooking">
         <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".LabSlotActivity" />
-        <activity android:name=".SearchByLabNameActivity" />
-        <activity android:name=".LabBookingActivity" />
-        <activity android:name=".ClassRoomBookingActivity" />
+        <activity android:name=".LabBooking.LabSlotActivity" />
+        <activity android:name=".LabBooking.SearchByLabNameActivity" />
+        <activity android:name=".LabBooking.LabBookingActivity" />
+        <activity android:name=".ClassroomBooking.ClassRoomBookingActivity" />
         <activity android:name=".ViewBookingHistoryActivity" />
-        <activity android:name=".ViewRoomByCapacityActivity" />
-        <activity android:name=".SearchByClassRoomCapacityActivity" />
+        <activity android:name=".ClassroomBooking.ViewRoomByCapacityActivity" />
+        <activity android:name=".ClassroomBooking.SearchByClassRoomCapacityActivity" />
         <activity android:name=".ConfirmBookingActivity" />
-        <activity android:name=".RoomSlotActivity" />
+        <activity android:name=".ClassroomBooking.RoomSlotActivity" />
         <activity android:name=".verify_mobile" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity">
@@ -32,11 +32,11 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".HomePageActivity" />
-        <activity android:name=".SearchByClassRoomNameActivity" />
-        <activity android:name=".SearchBySportsNameActivity"/>
-        <activity android:name=".SportsSlotActivity"/>
-        <activity android:name=".SportsBookingActivity"/>
-        <activity android:name=".ConfirmLabBookingActivity"/>
+        <activity android:name=".ClassroomBooking.SearchByClassRoomNameActivity" />
+        <activity android:name=".SportBooking.SearchBySportsNameActivity"/>
+        <activity android:name=".SportBooking.SportsSlotActivity"/>
+        <activity android:name=".SportBooking.SportsBookingActivity"/>
+        <activity android:name=".LabBooking.ConfirmLabBookingActivity"/>
     </application>
 
 </manifest>

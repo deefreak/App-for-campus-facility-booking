@@ -57,6 +57,7 @@ class ProfileActivity : AppCompatActivity() {
                 uri ->  Picasso.with(this).load(uri).into(person_image)
         }
         var name = findViewById<TextView>(R.id.person_name);
+        var name1 = findViewById<TextView>(R.id.person_name1);
         var email = findViewById<TextView>(R.id.person_email);
         var mobile = findViewById<TextView>(R.id.person_mobile);
         email.setText(user_email)
@@ -64,7 +65,8 @@ class ProfileActivity : AppCompatActivity() {
             .addOnCompleteListener(){
                 if(it.isSuccessful){
                     for(document in it.result!!){
-                        name.setText(""+document.data.getValue("name"));
+                        name.setText("@"+document.data.getValue("name"));
+                        name1.setText(""+document.data.getValue("name"));
                         mobile.setText("+91 "+document.data.getValue("mobile"));
                     }
                 }
@@ -151,14 +153,12 @@ class ProfileActivity : AppCompatActivity() {
                 person_image.setImageBitmap(bitmap)
 
                 uploadImageToFirebase(uuuid);
-//               Log.d("chut","$uuuid");
             }
         }
     }
     private fun uploadImageToFirebase(filename : String) {
         if (selectedPhotoUri == null) return
 
-//        val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/ProfileImage/"+filename)
 
         ref.putFile(selectedPhotoUri!!)
@@ -170,7 +170,6 @@ class ProfileActivity : AppCompatActivity() {
                     profileImageUrlText = it.toString()
                     Log.d("TAG", "File url: $profileImageUrlText")
 
-//                    saveUserToFirebaseDatabase(it.toString())
                 }
             }
             .addOnFailureListener {

@@ -4,9 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.View.GONE
-import android.widget.*
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +19,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.example.cfb.models.User
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
@@ -113,10 +112,10 @@ class SignUpActivity : AppCompatActivity() {
                         verifyOTP()
 
                         val user = User(
-                            auth.currentUser?.uid!!,
-                            name,
-                            mobile_number,
-                            email
+                                auth.currentUser?.uid!!,
+                                name,
+                                mobile_number,
+                                email
                         )
                         val firestore = FirebaseFirestore.getInstance().collection("Users")
                         firestore.document(auth.currentUser?.uid!!).set(user)

@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         auth= FirebaseAuth.getInstance()
         var currentUser=auth.currentUser
 
-//        Reference
         val logout=findViewById<Button>(R.id.idLogout)
 
         if(currentUser==null){

@@ -1,4 +1,4 @@
-package com.example.cfb
+package com.example.cfb.models
 
 data class User(val id: String = "",
                 val name: String = "",

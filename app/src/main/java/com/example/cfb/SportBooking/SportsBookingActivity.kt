@@ -1,10 +1,12 @@
-package com.example.cfb
+package com.example.cfb.SportBooking
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import com.example.cfb.HomePageActivity
+import com.example.cfb.R
 
 class SportsBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,12 +17,12 @@ class SportsBookingActivity : AppCompatActivity() {
         val goback: ImageView = findViewById(R.id.backB)
 
         searchBySports.setOnClickListener {
-            val intent = Intent(this,SearchBySportsNameActivity::class.java)
+            val intent = Intent(this, SearchBySportsNameActivity::class.java)
             startActivity(intent)
         }
 
         goback.setOnClickListener {
-            val intent = Intent(this,HomePageActivity::class.java)
+            val intent = Intent(this, HomePageActivity::class.java)
             startActivity(intent)
         }
     }

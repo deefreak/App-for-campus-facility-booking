@@ -3,13 +3,13 @@ package com.example.cfb
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.example.cfb.models.BookingHistory
+import com.example.cfb.models.ClassRoom
+import com.example.cfb.models.Sport
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import org.jetbrains.anko.find
 
 class ConfirmBookingActivity : AppCompatActivity() {
 
@@ -85,13 +85,13 @@ class ConfirmBookingActivity : AppCompatActivity() {
                             }
                             val purposeText = purpose.editText?.text.toString()
                             val bookingHistory = BookingHistory(
-                                email,
-                                date,
-                                slot,
-                                name,
-                                facilityName,
-                                purposeText,
-                                buildingName
+                                    email,
+                                    date,
+                                    slot,
+                                    name,
+                                    facilityName,
+                                    purposeText,
+                                    buildingName
                             )
 
                             firestore.collection("BookingHistory").document().set(bookingHistory)

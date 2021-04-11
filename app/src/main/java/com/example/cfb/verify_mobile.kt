@@ -23,7 +23,6 @@ class verify_mobile : AppCompatActivity() {
 
         val storedVerificationId=intent.getStringExtra("storedVerificationId")
 
-//        Reference
         val verify=findViewById<Button>(R.id.verifyBtn)
         val otpGiven=findViewById<EditText>(R.id.id_otp)
 
