@@ -52,10 +52,10 @@
                   <a class="nav-link" aria-current="page" href="/classrooms"><b>CLASSROOMS</b></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#"><b>SPORTS</b></a>
+                  <a class="nav-link" aria-current="page" href="/sports"><b>SPORTS</b></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#"><b>LABS</b></a>
+                  <a class="nav-link" aria-current="page" href="/labs"><b>LABS</b></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" aria-current="page" href="#"><b>ATTENDANCE</b></a>
@@ -69,22 +69,20 @@
         <!-- </nav> -->
     </nav>
 
+   
+
     <!-- add new classroom  modal  -->
     <div class="col d-flex justify-content-center">
     <% for (let user of userArray) { %>
-    <div id = "UserSection" class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col col-class1">
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%=user.name%></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><%=user.email%></h6>
-            <p class="card-text"><%=user.mobile%></p>
-            <p>
-            <a href="/users/<%= user.email %>" class="btn btn-primary">View History</a>
-             </p>
-          </div>
-        </div> 
-      </div>
+      <div class="card border-info mb-3 mb-sm-12" style="max-width: 18rem;margin:17px;padding:0px">
+        <div class="card-header"><%= user.name  %> </div>
+        <div class="card-body text-dark">
+          <h5 class="card-title"><%=user.email%></h5>
+          <p class="card-text"><%=user.mobile%></p>
+          
+          <a href="/users/<%= user.email %>" class="btn btn-outline-primary">View History</a>
+          
+        </div>
       </div>
       <% } %> 
     </div>

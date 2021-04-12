@@ -2,6 +2,9 @@
 
 const firebase = require('../db');
 const Classroom = require('../models/classroom');
+const Sport = require('../models/sport');
+const Lab = require('../models/lab');
+
 const Student = require('../models/student');
 const User = require('../models/user');
 const BookingHistory = require('../models/bookinghistory')
@@ -17,6 +20,25 @@ const addClassroom = async(req,res,next) => {
     }
 }
 
+const addSport = async(req,res,next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('Sports').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const addLab = async(req,res,next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('Labs').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getAllUsers = async (req, res, next) => {
     try {
         const users = await firestore.collection('Users');
@@ -58,6 +80,52 @@ const getAllClassRooms = async (req, res, next) => {
                 classroomArray.push(classroom);
             });
             res.render("../views/edit.ejs",{classroomArray})
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getAllLabs = async (req, res, next) => {
+    try {
+        const lab = await firestore.collection('Labs');
+        const data = await lab.get();
+        const labArray = [];
+        if(data.empty) {
+            res.status(404).send('No lab found');
+        }else {
+            data.forEach(doc => {
+                const lab = new Lab(
+                    doc.data().Name,
+                    doc.data().BuildingName,
+                    doc.data().Department,
+                    doc.data().Equipments
+                );
+                labArray.push(lab);
+            });
+            res.render("../views/editlabs.ejs",{labArray})
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+const getAllSports = async (req, res, next) => {
+    try {
+        const sport = await firestore.collection('Sports');
+        const data = await sport.get();
+        const sportArray = [];
+        if(data.empty) {
+            res.status(404).send('No sport found');
+        }else {
+            data.forEach(doc => {
+                const sport = new Sport(
+                    doc.data().Name
+                );
+                sportArray.push(sport);
+            });
+            res.render("../views/editsports.ejs",{sportArray})
         }
     } catch (error) {
         res.status(400).send(error.message);
@@ -150,5 +218,10 @@ module.exports = {
     getAllClassRooms,
     getBookingHistory,
     deleteClassRoom,
-    getClassRoom
+    getClassRoom,
+    addSport,
+    getAllSports,
+    addLab,
+    getAllLabs
+    
 }
