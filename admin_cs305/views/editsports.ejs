@@ -76,9 +76,9 @@
         <div class="card-body text-dark">
           <h5 class="card-title">Sports Complex</h5>
           
-            <a href="" style = "width:50%" class="btn btn-outline-primary">Edit</a>
-            <a href="" style = "width : 48%" class="btn btn-outline-danger">Delete</a>
-          
+          <button href="" style = "width:50%" class="btn btn-outline-primary">Edit</button>
+          <form style="display: inline;" action= "/sports/editsports/<%= sport.Name %> " method = "POST">     
+          <button href="" style = "width:48%" class="btn btn-outline-danger">Delete</button></form>
         </div>
       </div>
     <% } %>

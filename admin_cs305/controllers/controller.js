@@ -13,7 +13,7 @@ const firestore = firebase.firestore();
 const addClassroom = async(req,res,next) => {
     try {
         const data = req.body;
-        await firestore.collection('ClassRooms').doc().set(data);
+        await firestore.collection('ClassRooms').doc(req.body.Name).set(data);
         res.send('Record saved successfuly');
     } catch (error) {
         res.status(400).send(error.message);
@@ -23,7 +23,7 @@ const addClassroom = async(req,res,next) => {
 const addSport = async(req,res,next) => {
     try {
         const data = req.body;
-        await firestore.collection('Sports').doc().set(data);
+        await firestore.collection('Sports').doc(req.body.Name).set(data)
         res.send('Record saved successfuly');
     } catch (error) {
         res.status(400).send(error.message);
@@ -33,7 +33,7 @@ const addSport = async(req,res,next) => {
 const addLab = async(req,res,next) => {
     try {
         const data = req.body;
-        await firestore.collection('Labs').doc().set(data);
+        await firestore.collection('Labs').doc(req.body.Name).set(data);
         res.send('Record saved successfuly');
     } catch (error) {
         res.status(400).send(error.message);
@@ -193,19 +193,55 @@ const updateStudent = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const updateClassroom = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const classroom = await firestore.collection('ClassRooms').doc(id).get()
+        const name = classroom.data().Name
+        const buildingname = classroom.data().BuildingName
+        const strength = classroom.data().Strength
+        const department = classroom.data().Department
+        res.render('../views/update.ejs',{name,buildingname,strength,department})        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const editThisClassroom = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const classroom = await firestore.collection('ClassRooms').doc(id)
+        await classroom.update(data)
+        res.send("Updated")     
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 const deleteClassRoom = async (req, res, next) => {
     try {
         const id = req.params.id;
-        res.send(id)
-        const classroom = await firestore.collection('ClassRooms');
-        const data = await classroom.get()
-        data.forEach(doc => {
-            if(doc.data().Name == id){
-                doc.delete()
-                res.render('/classrooms/edit')
-            }
-        })
+        const classroom = await firestore.collection('ClassRooms').doc(id).delete();
+        res.send("Deleted Successfully");
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const deleteSports = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const classroom = await firestore.collection('Sports').doc(id).delete();
+        res.send("Deleted Successfully");
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const deleteLabs = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const classroom = await firestore.collection('Labs').doc(id).delete();
+        res.send("Deleted Successfully");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -222,6 +258,9 @@ module.exports = {
     addSport,
     getAllSports,
     addLab,
-    getAllLabs
-    
+    getAllLabs,
+    deleteSports,
+    deleteLabs,
+    updateClassroom,
+    editThisClassroom
 }

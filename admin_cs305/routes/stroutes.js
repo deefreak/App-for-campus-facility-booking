@@ -10,7 +10,11 @@ const {
        addSport,
        getAllSports,
        addLab,
-       getAllLabs
+       getAllLabs,
+       deleteSports,
+       deleteLabs,
+       updateClassroom,
+       editThisClassroom
       } = require('../controllers/controller');
 
 const router = express.Router();
@@ -39,10 +43,13 @@ router.get('/sports/editsports',getAllSports)
 
 router.post('/labs',addLab)
 router.get('/labs/editlabs',getAllLabs)
-
+router.post('/classrooms/edit/:id',deleteClassRoom)
+router.post('/sports/editsports/:id',deleteSports)
+router.post('/labs/editlabs/:id',deleteLabs)
 
 router.get('/users/:id',getBookingHistory)
-
+router.get('/classrooms/edit/:id/editthis',updateClassroom)
+router.post('/classrooms/edit/:id/editthis',editThisClassroom)
 module.exports = {
     routes: router
 }

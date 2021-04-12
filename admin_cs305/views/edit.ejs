@@ -77,10 +77,10 @@
         <div class="card-header"><%= classroom.Name  %> </div>
         <div class="card-body text-dark">
           <h5 class="card-title"><%=classroom.BuildingName%></h5>
-          <p class="card-text">Strength :  <%=classroom.Strength%></p>
-          
-            <a href="" style = "width:50%" class="btn btn-outline-primary">Edit</a>
-            <a href="" style = "width : 48%" class="btn btn-outline-danger">Delete</a>
+          <p class="card-text">Strength :  <%=classroom.Strength%></p>      
+            <a href="/classrooms/edit/<%= classroom.Name%>/editthis" style = "width:50%" class="btn btn-outline-primary">Edit</a>
+            <form style="display: inline;" action= "/classrooms/edit/<%= classroom.Name %> " method = "POST">     
+            <button href="" style = "width:48%" class="btn btn-outline-danger">Delete</button></form>
           
         </div>
       </div>
