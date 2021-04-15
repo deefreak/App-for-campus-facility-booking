@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusFacilityBooking">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".MarkAttendanceActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".LabBooking.LabSlotActivity" />
         <activity android:name=".LabBooking.SearchByLabNameActivity" />
         <activity android:name=".LabBooking.LabBookingActivity" />
@@ -33,10 +34,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".ClassroomBooking.SearchByClassRoomNameActivity" />
-        <activity android:name=".SportBooking.SearchBySportsNameActivity"/>
-        <activity android:name=".SportBooking.SportsSlotActivity"/>
-        <activity android:name=".SportBooking.SportsBookingActivity"/>
-        <activity android:name=".LabBooking.ConfirmLabBookingActivity"/>
+        <activity android:name=".SportBooking.SearchBySportsNameActivity" />
+        <activity android:name=".SportBooking.SportsSlotActivity" />
+        <activity android:name=".SportBooking.SportsBookingActivity" />
+        <activity android:name=".LabBooking.ConfirmLabBookingActivity" />
     </application>
 
 </manifest>

@@ -1,8 +1,10 @@
 package com.example.cfb
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cfb.Adapters.ViewBookingHistoryAdapter
@@ -23,6 +25,12 @@ class ViewBookingHistoryActivity : AppCompatActivity() {
         val fireStore = FirebaseFirestore.getInstance()
 
         var list: MutableList<BookingHistory> = mutableListOf()
+
+        val goback: ImageView = findViewById(R.id.backB)
+        goback.setOnClickListener {
+            val intent = Intent(this, HomePageActivity::class.java)
+            startActivity(intent)
+        }
 
 
         recyclerView = findViewById(R.id.recyclerHistory)
