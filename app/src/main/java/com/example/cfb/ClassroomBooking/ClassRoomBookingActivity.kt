@@ -18,6 +18,7 @@ class ClassRoomBookingActivity : AppCompatActivity() {
         val searchByStrength: CardView = findViewById(R.id.searchByCapacityCard)
         val goback: ImageView = findViewById(R.id.backB)
 
+
         searchByRoom.setOnClickListener {
             val intent = Intent(this, SearchByClassRoomNameActivity::class.java)
             startActivity(intent)

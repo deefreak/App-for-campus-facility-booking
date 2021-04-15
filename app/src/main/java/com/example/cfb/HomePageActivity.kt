@@ -20,7 +20,11 @@ class HomePageActivity : AppCompatActivity() {
         val labBooking: CardView = findViewById(R.id.labbook)
         val sportBooking: CardView = findViewById(R.id.sportbook)
         val viewBooking: CardView = findViewById(R.id.viewBooking)
-       val editProfile: Button = findViewById(R.id.editProfileB)
+
+        val markAttendance: CardView = findViewById(R.id.MarkAttendanceCard)
+        val viewAttendance: CardView = findViewById(R.id.ViewAttendanceCard)
+
+        val editProfile: Button = findViewById(R.id.editProfileB)
         val auth = FirebaseAuth.getInstance()
         val logout: ImageView = findViewById(R.id.logout)
 
@@ -47,6 +51,14 @@ class HomePageActivity : AppCompatActivity() {
         viewBooking.setOnClickListener {
             val intent = Intent(this,ViewBookingHistoryActivity::class.java)
             startActivity(intent)
+        }
+
+        markAttendance.setOnClickListener {
+            val intent = Intent(this,MarkAttendanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewAttendance.setOnClickListener {
         }
 
         logout.setOnClickListener{
