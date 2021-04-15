@@ -1,6 +1,7 @@
 package com.example.cfb.Adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 import android.util.Log
 import com.example.cfb.R
+import com.example.cfb.ViewAllAttendanceActivity
 import com.example.cfb.models.BookingHistory
+import org.jetbrains.anko.find
 
 
 import java.text.SimpleDateFormat
@@ -28,7 +31,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
         var date: TextView = itemView.findViewById(R.id.date)
         var building: TextView = itemView.findViewById(R.id.buildingname)
         var statusButton: Button = itemView.findViewById(R.id.statusButton)
-
+        var viewAttendance: Button = itemView.findViewById(R.id.viewAttendance)
 
     }
     override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
@@ -36,15 +39,11 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
         holder.name.text = bookingList[position].facilityName
         holder.building.text = bookingList[position].building
         holder.slot.text = "Slot: " + bookingList[position].slot
+        val id = bookingList[position].id
 
         var type = ""
         var date1 = bookingList[position].date
         var slot = bookingList[position].slot
-        val date2 = date1.substring(6,8) + date1.substring(4,6) + date1.substring(0,4)
-        val firestore =  FirebaseFirestore.getInstance().collection(date2)
-        firestore.document(bookingList[position].facilityName).get()
-            .addOnSuccessListener {
-                type = it.getString("type").toString()
 
                 var currentDate = SimpleDateFormat("yyyyMMdd").format(Date())
 
@@ -107,15 +106,16 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                 }
                 Log.d("res",date2)
 
-                var n1 = type.length
-                type = type.substring(0,n1-1)
 
-                holder.name.text = "$type: " + bookingList[position].facilityName
+                holder.name.text = bookingList[position].type + ": " + bookingList[position].facilityName
                 holder.date.text = "Date: " + date2
 
-            }
 
-
+        holder.viewAttendance.setOnClickListener { 
+            val intent = Intent(context, ViewAllAttendanceActivity::class.java)
+            intent.putExtra("id",id)
+            context.startActivity(intent)
+        }
 
     }
 

@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cfb">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusFacilityBooking">
-        <activity android:name=".MarkAttendanceActivity"></activity>
+        <activity android:name=".UserAttendanceActivity"></activity>
+        <activity android:name=".ViewAllAttendanceActivity" />
+        <activity android:name=".MarkAttendanceActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LabBooking.LabSlotActivity" />
         <activity android:name=".LabBooking.SearchByLabNameActivity" />
@@ -39,5 +39,7 @@
         <activity android:name=".SportBooking.SportsBookingActivity" />
         <activity android:name=".LabBooking.ConfirmLabBookingActivity" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

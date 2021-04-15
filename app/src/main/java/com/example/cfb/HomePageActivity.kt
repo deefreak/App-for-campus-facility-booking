@@ -59,6 +59,8 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         viewAttendance.setOnClickListener {
+            val intent = Intent(this,UserAttendanceActivity::class.java)
+            startActivity(intent)
         }
 
         logout.setOnClickListener{

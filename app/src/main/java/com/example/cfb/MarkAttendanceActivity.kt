@@ -94,11 +94,20 @@ class MarkAttendanceActivity : AppCompatActivity() {
                             if(currenthour.toInt() < startTime.toInt()) {
                             }
                             else if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
-                                ongoinglist.add(i)
+                                val id = i.id
+                                val auth = FirebaseAuth.getInstance()
+                                var c = 0
+                                fireStore.collection("BookingHistory").document(id).collection("Attendees").whereEqualTo("email",auth.currentUser?.email).get()
+                                        .addOnSuccessListener {
+                                            if(it.isEmpty){
+                                                ongoinglist.add(i)
+                                            }
+                                            (recyclerView.adapter as MarkAttendanceAdapter).notifyDataSetChanged()
+                                        }
                             }
                         }
 //                        ongoinglist.sortByDescending {it.date}
-                        (recyclerView.adapter as MarkAttendanceAdapter).notifyDataSetChanged()
+
                     }
                     .addOnFailureListener {
                         Log.e("No","Error")

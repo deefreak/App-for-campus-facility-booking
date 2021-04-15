@@ -10,6 +10,8 @@ import com.example.cfb.models.ClassRoom
 import com.example.cfb.models.Sport
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ConfirmBookingActivity : AppCompatActivity() {
 
@@ -84,6 +86,7 @@ class ConfirmBookingActivity : AppCompatActivity() {
                                 buildingName = list[0].BuildingName
                             }
                             val purposeText = purpose.editText?.text.toString()
+                            val id = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
                             val bookingHistory = BookingHistory(
                                     email,
                                     date,
@@ -91,10 +94,12 @@ class ConfirmBookingActivity : AppCompatActivity() {
                                     name,
                                     facilityName,
                                     purposeText,
-                                    buildingName
+                                    buildingName,
+                                    type,
+                                    id
                             )
 
-                            firestore.collection("BookingHistory").document().set(bookingHistory)
+                            firestore.collection("BookingHistory").document(id).set(bookingHistory)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         firestore.collection(date).document(facilityName)

@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
 import android.util.Log
+import android.widget.Toast
 import com.example.cfb.R
 import com.example.cfb.models.BookingHistory
+import com.example.cfb.models.attendance
+import com.google.firebase.auth.FirebaseAuth
 
 
 import java.text.SimpleDateFormat
@@ -27,7 +30,7 @@ class MarkAttendanceAdapter(var context: Context, var ongoingList: MutableList<B
         var name: TextView = itemView.findViewById(R.id.name)
         var date: TextView = itemView.findViewById(R.id.date)
         var building: TextView = itemView.findViewById(R.id.buildingname)
-        var statusButton: Button = itemView.findViewById(R.id.statusButton)
+        var markButton: Button = itemView.findViewById(R.id.markButton)
 
 
     }
@@ -40,18 +43,34 @@ class MarkAttendanceAdapter(var context: Context, var ongoingList: MutableList<B
         var type = ""
         var date1 = ongoingList[position].date
         var slot = ongoingList[position].slot
-        val date2 = date1.substring(6,8) + date1.substring(4,6) + date1.substring(0,4)
-        val firestore =  FirebaseFirestore.getInstance().collection(date2)
-        firestore.document(ongoingList[position].facilityName).get()
-            .addOnSuccessListener {
-                type = it.getString("type").toString()
+
 
                 var currentDate = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
-                holder.name.text = "$type: " + ongoingList[position].facilityName
+                holder.name.text = ongoingList[position].type + ": " + ongoingList[position].facilityName
                 holder.date.text = "Date: " + currentDate
 
+        val id = ongoingList[position].id
+        holder.markButton.setOnClickListener {
+            val firestore = FirebaseFirestore.getInstance()
+            val auth = FirebaseAuth.getInstance()
+            val email = auth.currentUser?.email
+            if (email != null) {
+                val data = attendance(email)
+                firestore.collection("BookingHistory").document(id).collection("Attendees").document().set(data)
+                        .addOnSuccessListener {
+                            Toast.makeText(context,"MArked",Toast.LENGTH_LONG).show()
+
+                            holder.markButton.text = "Marked"
+                            holder.markButton.setBackgroundColor(Color.GREEN)
+                            holder.markButton.isEnabled = false
+                            auth.currentUser?.uid?.let { it1 -> firestore.collection("Users").document(it1)
+                                    .collection("AttendanceRecord").document().set(ongoingList[position])}
+                        }
             }
+        }
+
+
     }
 
     override fun onCreateViewHolder(

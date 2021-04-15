@@ -11,6 +11,8 @@ import com.example.cfb.models.BookingHistory
 import com.example.cfb.models.LabRoom
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ConfirmLabBookingActivity : AppCompatActivity() {
 
@@ -77,6 +79,8 @@ class ConfirmLabBookingActivity : AppCompatActivity() {
                             }
                             var buildingName = list[0].BuildingName
                             val purposeText = purpose.editText?.text.toString()
+                            val id = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+                            val type = "Labs"
                             val bookingHistory = BookingHistory(
                                     email,
                                     date,
@@ -84,7 +88,9 @@ class ConfirmLabBookingActivity : AppCompatActivity() {
                                     name,
                                     facilityName,
                                     purposeText,
-                                    buildingName
+                                    buildingName,
+                                    type,
+                                    id
                             )
 
                             firestore.collection("BookingHistory").document().set(bookingHistory)

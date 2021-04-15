@@ -80,14 +80,31 @@
                 android:background="#E81909"
                 android:backgroundTint="@null"
                 android:text="Completed"
-                android:textSize="12sp"
                 android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.942"
+                app:layout_constraintHorizontal_bias="0.894"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.865" />
+                app:layout_constraintVertical_bias="0.6" />
+
+            <android.widget.Button
+                android:id="@+id/viewAttendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="#E81909"
+                android:backgroundTint="@null"
+                android:text="View Attendance"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.106"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buildingname"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
