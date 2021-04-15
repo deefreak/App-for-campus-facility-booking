@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.cfb.HomePageActivity
 import com.example.cfb.R
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,9 +15,13 @@ class SearchByClassRoomCapacityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_by_class_room_capacity)
 
-
-
         val search: Button = findViewById(R.id.searchButton)
+        val goback: ImageView = findViewById(R.id.backB)
+
+        goback.setOnClickListener {
+            val intent = Intent(this, ClassRoomBookingActivity::class.java)
+            startActivity(intent)
+        }
 
         val capacity: TextInputLayout = findViewById(R.id.capacity)
 

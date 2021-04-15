@@ -59,7 +59,7 @@ class MarkAttendanceAdapter(var context: Context, var ongoingList: MutableList<B
                 val data = attendance(email)
                 firestore.collection("BookingHistory").document(id).collection("Attendees").document().set(data)
                         .addOnSuccessListener {
-                            Toast.makeText(context,"MArked",Toast.LENGTH_LONG).show()
+                            Toast.makeText(context,"Marked",Toast.LENGTH_LONG).show()
 
                             holder.markButton.text = "Marked"
                             holder.markButton.setBackgroundColor(Color.GREEN)

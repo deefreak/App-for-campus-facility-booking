@@ -5,7 +5,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">#3192F4</item>
+        <item name="colorControlHighlight">#3192A4</item>
     </style>
 
     <style name="TextBlackTitle">

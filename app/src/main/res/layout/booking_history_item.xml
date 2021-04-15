@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:padding="10dp"
+        app:cardBackgroundColor="#139bd1"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         android:background="@drawable/cardviewborder"
@@ -26,9 +27,8 @@
 
             <TextView
                 android:id="@+id/slot"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Slot"
                 android:textColor="@color/white"
@@ -36,11 +36,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <android.widget.Button
+                android:id="@+id/statusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ed3434"
+                android:backgroundTint="@null"
+                android:text="Completed"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Date"
                 android:textColor="@color/white"
@@ -52,7 +62,6 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Name"
                 android:textColor="@color/white"
@@ -64,7 +73,6 @@
                 android:id="@+id/buildingname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="Building Name"
                 android:textColor="@color/white"
@@ -73,31 +81,13 @@
                 app:layout_constraintTop_toBottomOf="@id/name" />
 
             <android.widget.Button
-                android:id="@+id/statusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#E81909"
-                android:backgroundTint="@null"
-                android:text="Completed"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.894"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.6" />
-
-            <android.widget.Button
                 android:id="@+id/viewAttendance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:background="#E81909"
+                android:background="#ccc6c6"
                 android:backgroundTint="@null"
                 android:text="View Attendance"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

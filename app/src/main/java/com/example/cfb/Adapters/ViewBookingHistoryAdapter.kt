@@ -78,16 +78,16 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
                     if(currenthour.toInt() < startTime.toInt()) {
                         holder.statusButton.text = "Upcoming"
-                        holder.statusButton.setBackgroundColor(Color.BLUE)
+                        holder.statusButton.setBackgroundColor(Color.parseColor("#1738cf"))
                     }
                     else if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
-                        holder.statusButton.text = "OnGoing"
-                        holder.statusButton.setBackgroundColor(Color.GREEN)
+                        holder.statusButton.text = "Ongoing"
+                        holder.statusButton.setBackgroundColor(Color.parseColor("#13d162"))
                     }
                 }
                 else if(currentDate.toInt() < date1.toInt()){
-                    holder.statusButton.text = "UpComing"
-                    holder.statusButton.setBackgroundColor(Color.BLUE)
+                    holder.statusButton.text = "Upcoming"
+                    holder.statusButton.setBackgroundColor(Color.parseColor("#1738cf"))
                 }
                 var date2 = ""
                 var j = 0

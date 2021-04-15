@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cfb.Adapters.ViewBookingHistoryAdapter
@@ -66,6 +67,11 @@ class ViewBookingHistoryActivity : AppCompatActivity() {
                     }
                     list.sortByDescending {it.date}
                     (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
+                    if(list.isEmpty()) {
+                        Toast.makeText(this@ViewBookingHistoryActivity,"No bookings made",Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@ViewBookingHistoryActivity, HomePageActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
                 .addOnFailureListener {
                     Log.e("No","Error")

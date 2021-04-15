@@ -3,21 +3,29 @@ package com.example.cfb.SportBooking
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import com.example.cfb.HomePageActivity
 import com.example.cfb.R
+import com.example.cfb.ViewBookingHistoryActivity
 
 class SportsBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sports_booking)
 
-        val searchBySports: CardView = findViewById(R.id.searchBySportsCard)
+        val searchBySports: Button = findViewById(R.id.searchBySportsNameBox)
+        val bookedSports: Button = findViewById(R.id.bookedSportComplexes)
         val goback: ImageView = findViewById(R.id.backB)
 
         searchBySports.setOnClickListener {
             val intent = Intent(this, SearchBySportsNameActivity::class.java)
+            startActivity(intent)
+        }
+
+        bookedSports.setOnClickListener {
+            val intent = Intent(this, ViewBookingHistoryActivity::class.java)
             startActivity(intent)
         }
 

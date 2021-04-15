@@ -15,10 +15,10 @@
         android:layout_margin="20dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="24dp"
-        android:text="ATTENDANCE HISTORY"
+        android:text="ATTENDANCE RECORD"
 
         android:textColor="#3192F4"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:fontFamily="@font/black_ops_one"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

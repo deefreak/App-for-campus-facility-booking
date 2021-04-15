@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import android.view.View
 import android.widget.*
+import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
 import com.example.cfb.R
 import com.example.cfb.models.LabRoom
 import com.google.android.material.textfield.TextInputLayout
@@ -21,6 +22,13 @@ class SearchByLabNameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_by_lab_name)
 
         val search: Button = findViewById(R.id.searchButton)
+
+        val goback: ImageView = findViewById(R.id.backB)
+
+        goback.setOnClickListener {
+            val intent = Intent(this, LabBookingActivity::class.java)
+            startActivity(intent)
+        }
 
         val datePicker: Button = findViewById(R.id.pickDate)
 

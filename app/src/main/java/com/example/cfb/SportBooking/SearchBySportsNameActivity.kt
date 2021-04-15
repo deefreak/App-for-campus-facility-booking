@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
+import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
 import com.example.cfb.R
 import com.example.cfb.models.Sport
 import com.google.android.material.textfield.TextInputLayout
@@ -20,6 +21,12 @@ class SearchBySportsNameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_by_sports_name)
 
         val search: Button = findViewById(R.id.searchButton)
+        val goback: ImageView = findViewById(R.id.backB)
+
+        goback.setOnClickListener {
+            val intent = Intent(this, SportsBookingActivity::class.java)
+            startActivity(intent)
+        }
 
         val datePicker: Button = findViewById(R.id.pickDate)
 

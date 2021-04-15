@@ -39,7 +39,7 @@ class ViewAllAttendanceActivity : AppCompatActivity() {
         text =  findViewById(R.id.text)
 
         goback.setOnClickListener {
-            val intent = Intent(this, HomePageActivity::class.java)
+            val intent = Intent(this, ViewBookingHistoryActivity::class.java)
             startActivity(intent)
         }
 

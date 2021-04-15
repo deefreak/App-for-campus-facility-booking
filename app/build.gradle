@@ -62,6 +62,7 @@ dependencies {
 
     // material design
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
 
     // for profile photo view
     implementation 'de.hdodenhof:circleimageview:2.2.0'

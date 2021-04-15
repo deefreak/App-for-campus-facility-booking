@@ -2,11 +2,13 @@ package com.example.cfb.LabBooking
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.cfb.HomePageActivity
 import com.example.cfb.R
+import com.example.cfb.ViewBookingHistoryActivity
 
 
 class LabBookingActivity : AppCompatActivity() {
@@ -14,8 +16,8 @@ class LabBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lab_booking)
 
-        val searchByLab: CardView = findViewById(R.id.searchByLabCard)
-        val searchByEquipment: CardView = findViewById(R.id.searchByEquipmentCard)
+        val searchByLab: Button = findViewById(R.id.searchByLabNameBox)
+        val bookedLabs: Button = findViewById(R.id.bookedLabs)
         val goback: ImageView = findViewById(R.id.backB)
 
         searchByLab.setOnClickListener {
@@ -23,8 +25,8 @@ class LabBookingActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        searchByEquipment.setOnClickListener {
-            val intent = Intent(this, SearchByLabNameActivity::class.java)
+        bookedLabs.setOnClickListener {
+            val intent = Intent(this, ViewBookingHistoryActivity::class.java)
             startActivity(intent)
         }
 

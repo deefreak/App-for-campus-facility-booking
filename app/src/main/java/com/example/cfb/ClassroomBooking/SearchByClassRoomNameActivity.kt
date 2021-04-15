@@ -20,6 +20,13 @@ class SearchByClassRoomNameActivity : AppCompatActivity() {
 
         val search: Button = findViewById(R.id.searchButton)
 
+        val goback: ImageView = findViewById(R.id.backB)
+
+        goback.setOnClickListener {
+            val intent = Intent(this, ClassRoomBookingActivity::class.java)
+            startActivity(intent)
+        }
+
         val datePicker: Button = findViewById(R.id.pickDate)
 
         val c = Calendar.getInstance()
