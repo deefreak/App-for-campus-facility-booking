@@ -1,15 +1,31 @@
 package com.example.cfb
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cfb.MarkAttendanceAdapter
 import com.example.cfb.models.BookingHistory
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.doAsync
@@ -19,11 +35,53 @@ import java.util.*
 
 class MarkAttendanceActivity : AppCompatActivity() {
 
+    companion object{
+        private val REQUEST_PERMISSION_REQUEST_CODE = 2020
+    }
+
+    class Run {
+        companion object {
+            fun after(delay: Long, process: () -> Unit) {
+                Handler().postDelayed({
+                    process()
+                }, delay)
+            }
+        }
+    }
+
     lateinit var recyclerView: RecyclerView
     lateinit var markAttendanceAdapter: MarkAttendanceAdapter
+
+    lateinit var Lat : TextView
+    var userLatitude = ""
+    lateinit var Lon : TextView
+    lateinit var addr : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mark_attendance)
+
+        Lat  = findViewById(R.id.tvLatitude)
+        Lon  = findViewById(R.id.tvLongitude)
+        addr = findViewById(R.id.tvAddress)
+
+        //check permission
+        if (ContextCompat.checkSelfPermission(
+                applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                , REQUEST_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            Lat.text = ""
+            Lon.text = ""
+            addr.text = ""
+            userLatitude = ""
+            getCurrentLocation()
+        }
 
         val fireStore = FirebaseFirestore.getInstance()
 
@@ -44,7 +102,77 @@ class MarkAttendanceActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        fetchToDoList()
+        Run.after(2000) {
+            fetchToDoList()
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_PERMISSION_REQUEST_CODE && grantResults.size > 0){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                getCurrentLocation()
+            }else{
+                Toast.makeText(this,"Permission Denied!",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun getCurrentLocation() {
+
+        var locationRequest = LocationRequest()
+        locationRequest.interval = 10000
+        locationRequest.fastestInterval = 5000
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        //now getting address from latitude and longitude
+
+        val geocoder = Geocoder(this, Locale.getDefault())
+        var addresses:List<Address>
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        LocationServices.getFusedLocationProviderClient(this)
+            .requestLocationUpdates(locationRequest,object : LocationCallback(){
+                override fun onLocationResult(locationResult: LocationResult?) {
+                    super.onLocationResult(locationResult)
+                    LocationServices.getFusedLocationProviderClient(this@MarkAttendanceActivity)
+                        .removeLocationUpdates(this)
+                    if (locationResult != null && locationResult.locations.size > 0){
+                        var locIndex = locationResult.locations.size-1
+
+                        var latitude = locationResult.locations.get(locIndex).latitude
+                        var longitude = locationResult.locations.get(locIndex).longitude
+                        Lat.text = "Latitude: "+latitude
+                        userLatitude = latitude.toString()
+                        Lon.text = "Longitude: "+longitude
+
+                        addresses = geocoder.getFromLocation(latitude,longitude,1)
+
+                        var address:String = addresses[0].getAddressLine(0)
+                        addr.text = address
+                    }
+                }
+            }, Looper.getMainLooper())
 
     }
 
@@ -65,6 +193,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
                             list.add(document.toObject(BookingHistory::class.java))
 
                         }
+//                        getCurrentLocation()
                         for (i in list){
                             var slot = i.slot
                             var time = SimpleDateFormat("HHmmss").format(Date())
@@ -100,7 +229,9 @@ class MarkAttendanceActivity : AppCompatActivity() {
                                 fireStore.collection("BookingHistory").document(id).collection("Attendees").whereEqualTo("email",auth.currentUser?.email).get()
                                         .addOnSuccessListener {
                                             if(it.isEmpty){
-                                                ongoinglist.add(i)
+                                                if(userLatitude.substring(0,2) == "22") {
+                                                    ongoinglist.add(i)
+                                                }
                                             }
                                             (recyclerView.adapter as MarkAttendanceAdapter).notifyDataSetChanged()
                                         }
@@ -119,4 +250,5 @@ class MarkAttendanceActivity : AppCompatActivity() {
             }
         }
     }
+
 }
