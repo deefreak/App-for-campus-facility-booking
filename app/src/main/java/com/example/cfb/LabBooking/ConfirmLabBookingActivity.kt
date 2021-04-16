@@ -93,7 +93,7 @@ class ConfirmLabBookingActivity : AppCompatActivity() {
                                     id
                             )
 
-                            firestore.collection("BookingHistory").document().set(bookingHistory)
+                            firestore.collection("BookingHistory").document(id).set(bookingHistory)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         firestore.collection(date).document(facilityName)
