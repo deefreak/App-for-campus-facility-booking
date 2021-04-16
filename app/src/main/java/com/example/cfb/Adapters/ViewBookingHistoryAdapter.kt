@@ -110,6 +110,10 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                 holder.name.text = bookingList[position].type + ": " + bookingList[position].facilityName
                 holder.date.text = "Date: " + date2
 
+        if(bookingList[position].type == "Sports"){
+            holder.viewAttendance.text = ""
+            holder.viewAttendance.isEnabled = false
+        }
 
         holder.viewAttendance.setOnClickListener { 
             val intent = Intent(context, ViewAllAttendanceActivity::class.java)
