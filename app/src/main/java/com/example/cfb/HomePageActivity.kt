@@ -1,17 +1,25 @@
 package com.example.cfb
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
 import com.example.cfb.LabBooking.LabBookingActivity
 import com.example.cfb.SportBooking.SportsBookingActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class HomePageActivity : AppCompatActivity() {
+
+    companion object{
+        private val REQUEST_PERMISSION_REQUEST_CODE = 2020
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
@@ -54,8 +62,23 @@ class HomePageActivity : AppCompatActivity() {
         }
 
         markAttendance.setOnClickListener {
-            val intent = Intent(this,MarkAttendanceActivity::class.java)
-            startActivity(intent)
+
+            //check permission
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    , HomePageActivity.REQUEST_PERMISSION_REQUEST_CODE
+                )
+            }
+
+            else {
+                val intent = Intent(this,MarkAttendanceActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         viewAttendance.setOnClickListener {
