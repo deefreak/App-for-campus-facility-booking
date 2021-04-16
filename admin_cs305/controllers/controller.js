@@ -86,6 +86,60 @@ const getAllClassRooms = async (req, res, next) => {
     }
 }
 
+const getAllClassRooms1 = async (req, res, next) => {
+    try {
+        const classroom = await firestore.collection('ClassRooms');
+        const data = await classroom.get();
+        const classroomArray = [];
+        const datedata = [];
+        if(data.empty) {
+        }else {
+            data.forEach(doc => {
+                const classroom = new Classroom(
+                    doc.data().Name,
+                    doc.data().BuildingName,
+                    doc.data().Department,
+                    doc.data().Strength
+                );
+                classroomArray.push(classroom);
+            });
+        } 
+        const lab = await firestore.collection('Labs');
+        const data1 = await lab.get();
+        const labArray = [];
+        if(data1.empty) {
+            
+        }else {
+            data1.forEach(doc => {
+                const lab = new Lab(
+                    doc.data().Name,
+                    doc.data().BuildingName,
+                    doc.data().Department,
+                    doc.data().Equipments
+                );
+                labArray.push(lab);
+            });
+
+            const sport = await firestore.collection('Sports');
+        const data2 = await sport.get();
+        const sportArray = [];
+          if(data2.empty) {
+        }else {
+            data2.forEach(doc => {
+                const sport = new Sport(
+                    doc.data().Name
+                );
+                sportArray.push(sport);
+            });
+        }
+            datedata.push(req.params.DATE);
+            res.render("../views/allitems.ejs",{datedata , classroomArray,labArray,sportArray})
+        }
+    }
+     catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getAllLabs = async (req, res, next) => {
     try {
         const lab = await firestore.collection('Labs');
@@ -252,6 +306,7 @@ module.exports = {
     addClassroom,
     getAllUsers,
     getAllClassRooms,
+    getAllClassRooms1,
     getBookingHistory,
     deleteClassRoom,
     getClassRoom,
