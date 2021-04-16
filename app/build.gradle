@@ -68,4 +68,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     // picaso image loader
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Geo Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
