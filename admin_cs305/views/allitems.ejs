@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+  <title>Classrooms</title>
+</head>
+
+<style>
+  * {
+    @import url('https://fonts.googleapis.com/css2?family=Lexend&family=PT+Sans&family=PT+Serif:ital@1&display=swap');
+    /* font-family: 'PT Serif', serif; */
+  }
+
+  body {
+    background: #afcaca;
+  }
+
+  .h1class {
+    text-align: inherit;
+    padding: 9px;
+    text-transform: uppercase;
+  }
+</style>
+<script>
+
+</script>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+
+    <div class="container-fluid" style="width:60%">
+      <a class="navbar-brand" href="/">
+        <img src="https://www.w3schools.com/images/w3schools_green.jpg" width="30" height="24"
+          class="d-inline-block align-top">
+        <b>Admin Portal</b>
+      </a>
+    </div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">:)</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/"><b>HOME</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/users"><b>USERS</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/classrooms"><b>CLASSROOMS</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/sports"><b>SPORTS</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/labs"><b>LABS</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#"><b>ATTENDANCE</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/addslot"><b>ADD SLOT</b></a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          Campus Facility Booking
+        </span>
+      </div>
+    </div>
+    <!-- </nav> -->
+  </nav>
+
+  <!-- Classroom section starts-->
+  <h3 class="h1class">Add Slots for All Classrooms</h3>
+
+  <div class="row">
+    <% for(let classroom of classroomArray) { %>
+      <div class="card border-info mb-3" style="max-width: 18rem;margin:17px;padding:0px; border: 2px solid #0a0a0a !important;">
+        <div class="card-header">
+          <%= classroom.Name %>
+        </div>
+        <div class="card-body text-dark">
+          <h5 class="card-title">
+            <%=classroom.BuildingName%>
+          </h5>
+          <p class="card-text">Strength : <%=classroom.Strength%>
+          </p>
+          <a style="width:48%" class="btn btn-outline-primary" href="/addslot/<%= datedata[0] %>/<%= classroom.Name %>/ClassRooms" role="button">ADD</a>
+          <button style="width:50%" type="button" class="close1 btn btn-outline-secondary">Close</button>
+
+        </div>
+      </div>
+
+      <% } %>
+  </div>
+
+  <hr>
+
+<!-- classroom section ends -->
+
+ <!-- Labs section starts-->
+ <h3 class="h1class">Add Slots for All Labs</h3>
+
+ <div class="row">
+   <% for(let lab of labArray) { %>
+     <div class="card border-info mb-3" style="max-width: 18rem;margin:17px;padding:0px; border: 2px solid #0a0a0a !important;">
+       <div class="card-header">
+         <%= lab.Name %>
+       </div>
+       <div class="card-body text-dark">
+         <h5 class="card-title">
+           <%=lab.BuildingName%>
+         </h5>
+         <p class="card-text">Strength : <%=lab.Equipments%>
+         </p>
+         <a style="width:48%" class="btn btn-outline-primary" href="/addslot/<%= datedata[0] %>/<%= lab.Name %>/Labs" role="button">ADD</a>
+         <button style="width:50%" type="button" class="close1 btn btn-outline-secondary">Close</button>
+
+       </div>
+     </div>
+
+     <% } %>
+ </div>
+
+ <hr>
+
+<!-- labs section ends -->
+
+ <!-- Sports section starts-->
+ <h3 class="h1class">Add Slots for All Sports</h3>
+
+ <div class="row">
+   <% for(let sport of sportArray) { %>
+     <div class="card border-info mb-3" style="max-width: 18rem;margin:17px;padding:0px; border: 2px solid #0a0a0a !important;">
+       <div class="card-header">
+         <%= sport.Name %>
+       </div>
+       <div class="card-body text-dark">
+         
+         <a style="width:48%" class="btn btn-outline-primary" href="/addslot/<%= datedata[0] %>/<%= sport.Name %>/Sports" role="button">ADD</a>
+         <button style="width:50%" type="button" class="close1 btn btn-outline-secondary">Close</button>
+
+       </div>
+     </div>
+
+     <% } %>
+ </div>
+
+ <hr>
+
+<!-- sports  section ends -->
+   
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Slots</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/addslot/submit_class_slots" , method="POST">
+              <div class="modal-body">
+                <h5 class="card-title">ACAD SLOTS</h5>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                  <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck1">9:00 10:00</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck2">13:00 14:00</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck3">16:00 17:00</label>
+                </div>
+                    
+                <h5 class="card-title">AVAILABLE SLOTS</h5>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                  <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck4">9:00 10:00</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck5">13:00 14:00</label>
+                
+                  <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btncheck6">16:00 17:00</label>
+                </div>
+              </div>
+
+            </form>
+            
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+ 
+
+  
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+    integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+    integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+    crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+  <script src="js/index.js"></script>
+  <script>
+
+    var closebtns = document.getElementsByClassName("close1");
+    var i;
+
+    /* Loop through the elements, and hide the parent, when clicked on */
+    for (i = 0; i < closebtns.length; i++) {
+      closebtns[i].addEventListener("click", function () {
+        console.log('clicked');
+        this.parentElement.parentElement.style.display = 'none';
+      });
+    }
+
+
+
+  </script>
+
+</body>
+
+</html>
