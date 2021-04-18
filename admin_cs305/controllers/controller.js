@@ -20,6 +20,61 @@ const addClassroom = async(req,res,next) => {
     }
 }
 
+const deleteCollection = async(req,res,next) => {
+    try {
+        /*const date = new Date()
+        const year = date.getFullYear().toString()
+        let month = date.getMonth()
+        month = month + 1
+        if(month < 10){
+            month = "0" + month.toString()
+        }
+        let day = date.getDate()
+        if(day<10){
+            day = "0" + day.toString()
+        }
+        const today_date = day.toString() + month.toString() + year*/
+
+        var d = new Date();
+        d.setDate(d.getDate()).toString();
+        var today_dat = d.toDateString()
+
+        var month1 = new Map([['Jan','01'],['Feb','02'],['Mar','03'],['Apr','04'],['May','05'],['Jun','06'],['Jul','07'],['Aug','08'],['Sep','09'],['Oct','10'],['Nov','11'],['Dec','12']]);
+
+        const today_date = today_dat.substring(8,10) + month1.get(today_dat.substring(4,7)) + today_dat.substring(11,15)
+        var i = 1
+        var c = 0
+        var list = []
+        while(true){
+
+            var x = new Date()
+            x.setDate(x.getDate() - i).toString();
+            var prev = x.toDateString()
+            var prev_date = prev.substring(8,10) + month1.get(prev.substring(4,7)) + prev.substring(11,15)
+            const users = await firestore.collection(prev_date);
+            const data = await users.get();
+            
+            if(data.empty) {
+                c = c+1
+                if(c == 5){
+                    res.render('../views/selectdate.ejs')
+                    break
+                }    
+            }else {
+                c = 0
+                data.forEach(doc => {
+                    firestore.collection(prev_date).doc(doc.id).delete()    
+                });
+            }
+            i=i+1
+        }
+        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+    
+}
+
 const addSport = async(req,res,next) => {
     try {
         const data = req.body;
@@ -317,5 +372,6 @@ module.exports = {
     deleteSports,
     deleteLabs,
     updateClassroom,
-    editThisClassroom
+    editThisClassroom,
+    deleteCollection
 }

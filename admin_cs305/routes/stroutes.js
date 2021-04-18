@@ -18,7 +18,8 @@ const {
        deleteSports,
        deleteLabs,
        updateClassroom,
-       editThisClassroom
+       editThisClassroom,
+       deleteCollection
       } = require('../controllers/controller');
 
 const router = express.Router();
@@ -42,6 +43,8 @@ router.get('/labs',(req,res) => {
 router.get('/addslot',(req,res) => {
     res.render("../views/selectdate.ejs")
 })
+
+router.get('/delete',deleteCollection)
 
 
 

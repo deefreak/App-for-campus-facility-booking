@@ -372,6 +372,7 @@
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"
+            android:visibility="invisible"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="8dp">
 
@@ -416,6 +417,7 @@
             android:layout_height="128dp"
             android:layout_margin="8dp"
             android:layout_marginStart="16dp"
+            android:visibility="invisible"
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"

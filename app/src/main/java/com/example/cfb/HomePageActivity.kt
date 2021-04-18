@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
@@ -13,6 +14,7 @@ import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
 import com.example.cfb.LabBooking.LabBookingActivity
 import com.example.cfb.SportBooking.SportsBookingActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -61,30 +63,46 @@ class HomePageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        markAttendance.setOnClickListener {
+        var type=""
+        val fireStore = FirebaseFirestore.getInstance()
+        fireStore.collection("Users").document(auth.currentUser!!.uid).get()
+                .addOnSuccessListener {
+                    type = it.getString("type").toString()
+                    if(type == "Student"){
+                        markAttendance.visibility = View.VISIBLE
+                        viewAttendance.visibility = View.VISIBLE
+                        markAttendance.setOnClickListener {
+                            
+                            //check permission
+                            if (ContextCompat.checkSelfPermission(
+                                            applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                                    ) != PackageManager.PERMISSION_GRANTED
+                            ) {
+                                ActivityCompat.requestPermissions(
+                                        this,
+                                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                                        , HomePageActivity.REQUEST_PERMISSION_REQUEST_CODE
+                                )
+                            }
 
-            //check permission
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    , HomePageActivity.REQUEST_PERMISSION_REQUEST_CODE
-                )
-            }
+                            else {
+                                val intent = Intent(this,MarkAttendanceActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
 
-            else {
-                val intent = Intent(this,MarkAttendanceActivity::class.java)
-                startActivity(intent)
-            }
-        }
+                        viewAttendance.setOnClickListener {
+                            val intent = Intent(this,UserAttendanceActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    else{
+                        markAttendance.visibility = View.GONE
+                        viewAttendance.visibility = View.GONE
+                    }
+                }
 
-        viewAttendance.setOnClickListener {
-            val intent = Intent(this,UserAttendanceActivity::class.java)
-            startActivity(intent)
-        }
+
 
         logout.setOnClickListener{
             auth.signOut()
