@@ -28,8 +28,10 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.lang.Math.abs
 import java.lang.Math.cos
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,6 +61,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
     lateinit var Lon : TextView
     lateinit var addr : TextView
 
+    /*
     // Center coor of M1 Classroom
     var m1Latitude = 23.8365571
     var m1Longitude = 80.3879593
@@ -73,6 +76,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
     // pi / 180 = 0.018
     var new_long_y1 = m1Longitude - coef / cos(m1Longitude.toDouble()*0.018)
     var new_long_y2 = m1Longitude + coef / cos(m1Longitude.toDouble()*0.018)
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -243,12 +247,36 @@ class MarkAttendanceActivity : AppCompatActivity() {
                             }
                             else if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
                                 val id = i.id
+                                var facilityType = i.type
+                                var facilityName = i.facilityName
+
                                 val auth = FirebaseAuth.getInstance()
                                 var c = 0
+                                var facilityLatitude = 0.00
+                                var facilityLongitude = 0.00
+
+                                var meters = 10
+                                var coef = meters * 0.0000089
+                                var new_latitude = 0.00
+                                var new_longitude = 0.00
                                 fireStore.collection("BookingHistory").document(id).collection("Attendees").whereEqualTo("email",auth.currentUser?.email).get()
                                         .addOnSuccessListener {
                                             if(it.isEmpty){
-                                                if((userLatitude.toDouble() >= new_lat_x1 && userLatitude.toDouble() <= new_lat_x2) && (userLongitude.toDouble() >= new_long_y1 && userLongitude.toDouble() <= new_long_y2)) {
+                                                fireStore.collection(facilityType).whereEqualTo("Name",facilityName).get()
+                                                        .addOnSuccessListener {documents->
+                                                            for(document in documents) {
+                                                                facilityLatitude = document.data.getValue("Latitude").toString().toDouble()
+                                                                facilityLongitude = document.data.getValue("Longitude").toString().toDouble()
+                                                            }
+                                                            new_latitude = facilityLatitude + coef
+                                                            new_longitude = facilityLongitude + coef / cos(facilityLongitude*0.018)
+                                                            Log.d("userLatitude",userLatitude)
+                                                            Log.d("userLongitude",userLongitude)
+                                                        }
+                                                        .addOnFailureListener{
+                                                            Toast.makeText(this@MarkAttendanceActivity,"Error",Toast.LENGTH_LONG).show()
+                                                        }
+                                                if((abs(userLatitude.toDouble()-facilityLatitude)>=0.000) && (abs(userLongitude.toDouble()-facilityLongitude)>=0.000)) {
                                                     ongoinglist.add(i)
                                                 }
                                             }
