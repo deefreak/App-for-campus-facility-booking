@@ -75,10 +75,10 @@
    
 
     <!-- add new classroom  modal  -->
-    <div class="col d-flex justify-content-center">
-    <% for (let user of userArray) { %>
-      <div class="card border-info mb-3 mb-sm-12" style="max-width: 18rem;margin:17px;padding:0px">
-        <div class="card-header"><%= user.name  %> </div>
+    <div class="row justify-content-center">
+     <% for (let user of userArray) { %>
+      <div class="card border-info mb-3" style="max-width: 18rem;margin:17px;padding:0px">
+        <div class="card-header"><%=user.name%> (<%=user.type%>)  </div>
         <div class="card-body text-dark">
           <h5 class="card-title"><%=user.email%></h5>
           <p class="card-text"><%=user.mobile%></p>
@@ -89,6 +89,7 @@
       </div>
       <% } %> 
     </div>
+  
     
     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

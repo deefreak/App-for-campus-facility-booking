@@ -71,19 +71,14 @@
       <!-- </nav> -->
   </nav>
 
-  <div class="col d-flex justify-content-center">
+  <div class="row justify-content-center">
     <% for(let history of historyArray) {%>
-    <div id = "HistorySection" class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col col-class1">
-        <div class="card" style="width: 18rem;">
+      <div id = "HistorySection" class="card border-info mb-3" style="max-width: 18rem;margin:17px;padding:0px">
           <div class="card-body">
             <h5 class="card-title"><%=history.building%></h5>
             <h6 class="card-subtitle mb-2 text-muted"><%=history.facilityName%></h6>
-            <p class="card-text"><%=history.date%></p>
-            
+            <p class="card-text"><%=history.date%></p>            
           </div>
-        </div>  
-      </div>
     </div>
     <% } %>
   </div>

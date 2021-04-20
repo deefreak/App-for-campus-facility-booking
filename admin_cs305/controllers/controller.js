@@ -107,7 +107,8 @@ const getAllUsers = async (req, res, next) => {
                     doc.data().id,
                     doc.data().email,
                     doc.data().name,
-                    doc.data().mobile
+                    doc.data().mobile,
+                    doc.data().type
                 );
                 userArray.push(user);
             });
