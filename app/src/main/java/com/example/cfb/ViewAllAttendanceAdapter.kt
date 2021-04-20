@@ -30,7 +30,7 @@ class ViewAllAttendanceAdapter(var context: Context, var attendanceList: Mutable
     }
     override fun onBindViewHolder(holder: DetailsViewHolder, position: Int) {
 
-        holder.email.text = attendanceList[position].email
+        holder.email.text = "• " + attendanceList[position].email
 
     }
 

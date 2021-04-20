@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.lang.Math.cos
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,10 +53,26 @@ class MarkAttendanceActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var markAttendanceAdapter: MarkAttendanceAdapter
 
-    lateinit var Lat : TextView
     var userLatitude = ""
+    var userLongitude = ""
+    lateinit var Lat : TextView
     lateinit var Lon : TextView
     lateinit var addr : TextView
+
+    // Center coor of M1 Classroom
+    var m1Latitude = 23.8365571
+    var m1Longitude = 80.3879593
+
+    var meters = 10
+    // number of km per degree = ~111km (111.32 in google maps, but range varies between 110.567km at the equator and 111.699km at the poles)
+    // 1km in degree = 1 / 111.32km = 0.0089
+    // 1m in degree = 0.0089 / 1000 = 0.0000089
+    var coef = meters * 0.0000089
+    var new_lat_x1 = m1Latitude - coef
+    var new_lat_x2 = m1Latitude + coef
+    // pi / 180 = 0.018
+    var new_long_y1 = m1Longitude - coef / cos(m1Longitude.toDouble()*0.018)
+    var new_long_y2 = m1Longitude + coef / cos(m1Longitude.toDouble()*0.018)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +97,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
             Lon.text = ""
             addr.text = ""
             userLatitude = ""
+            Toast.makeText(this,"Fetching Location...",Toast.LENGTH_LONG).show()
             getCurrentLocation()
         }
 
@@ -165,6 +183,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
                         Lat.text = "Latitude: "+latitude
                         userLatitude = latitude.toString()
                         Lon.text = "Longitude: "+longitude
+                        userLongitude = longitude.toString()
 
                         addresses = geocoder.getFromLocation(latitude,longitude,1)
 
@@ -229,7 +248,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
                                 fireStore.collection("BookingHistory").document(id).collection("Attendees").whereEqualTo("email",auth.currentUser?.email).get()
                                         .addOnSuccessListener {
                                             if(it.isEmpty){
-                                                if(userLatitude.substring(0,2) == "22") {
+                                                if((userLatitude.toDouble() >= new_lat_x1 && userLatitude.toDouble() <= new_lat_x2) && (userLongitude.toDouble() >= new_long_y1 && userLongitude.toDouble() <= new_long_y2)) {
                                                     ongoinglist.add(i)
                                                 }
                                             }

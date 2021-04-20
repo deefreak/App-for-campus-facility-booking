@@ -15,10 +15,7 @@ import java.util.concurrent.TimeUnit
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View.VISIBLE
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.cfb.models.User
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -99,6 +96,12 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // radio button
+            val facultyRadio: RadioButton = findViewById(R.id.facultyRadio)
+            var type:String
+            if(facultyRadio.isChecked) type="Professor"
+            else type="Student"
+
             signUpProgress.visibility = VISIBLE
 
 
@@ -115,7 +118,8 @@ class SignUpActivity : AppCompatActivity() {
                                 auth.currentUser?.uid!!,
                                 name,
                                 mobile_number,
-                                email
+                                email,
+                                type
                         )
                         val firestore = FirebaseFirestore.getInstance().collection("Users")
                         firestore.document(auth.currentUser?.uid!!).set(user)

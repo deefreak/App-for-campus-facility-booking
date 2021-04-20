@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -33,6 +34,8 @@ class HomePageActivity : AppCompatActivity() {
 
         val markAttendance: CardView = findViewById(R.id.MarkAttendanceCard)
         val viewAttendance: CardView = findViewById(R.id.ViewAttendanceCard)
+
+        val textview3: TextView = findViewById(R.id.textView3)
 
         val editProfile: Button = findViewById(R.id.editProfileB)
         val auth = FirebaseAuth.getInstance()
@@ -69,6 +72,7 @@ class HomePageActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     type = it.getString("type").toString()
                     if(type == "Student"){
+                        textview3.setText("Student, IIT Ropar")
                         markAttendance.visibility = View.VISIBLE
                         viewAttendance.visibility = View.VISIBLE
                         markAttendance.setOnClickListener {

@@ -74,14 +74,14 @@ class SportsSlotAdapter(var context: Context, var slots: MutableList<Pair<String
         var status = slots[position].second
         if (status == "available"){
             holder.bookButton.text = "Book Now"
-            var color = Color.GREEN
+            var color = Color.parseColor("#13d162")
             holder.bookButton.setBackgroundColor(color)
 
         }
 
         else if(status == "acadSlots"){
             holder.bookButton.text = "Academic Slot"
-            val color = Color.GRAY
+            val color = Color.parseColor("#8585ad")
             holder.bookButton.setBackgroundColor(color)
         }
 

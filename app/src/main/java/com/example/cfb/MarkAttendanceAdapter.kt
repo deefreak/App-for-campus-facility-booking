@@ -62,7 +62,7 @@ class MarkAttendanceAdapter(var context: Context, var ongoingList: MutableList<B
                             Toast.makeText(context,"Marked",Toast.LENGTH_LONG).show()
 
                             holder.markButton.text = "Marked"
-                            holder.markButton.setBackgroundColor(Color.GREEN)
+                            holder.markButton.setBackgroundColor(Color.parseColor("#13d162"))
                             holder.markButton.isEnabled = false
                             auth.currentUser?.uid?.let { it1 -> firestore.collection("Users").document(it1)
                                     .collection("AttendanceRecord").document().set(ongoingList[position])}

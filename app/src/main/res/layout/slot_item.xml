@@ -27,7 +27,7 @@
                 android:id="@+id/slot"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/yellow"
+                android:background="#6666ff"
                 android:padding="5dp"
                 android:text="Slot"
                 android:textStyle="bold"
@@ -46,7 +46,7 @@
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/slot"
                 android:backgroundTint="@null"
-                android:background="@drawable/button_color"
+                android:background="#ed3434"
                 tools:layout_editor_absoluteX="0dp" />
 
 
