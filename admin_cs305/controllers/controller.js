@@ -74,6 +74,55 @@ const deleteCollection = async(req,res,next) => {
     }
     
 }
+/*const deleteupcomingslots = async(req,res,next) => {
+    try {
+        const date = new Date()
+        const year = date.getFullYear().toString()
+        let month = date.getMonth()
+        month = month + 1
+        if(month < 10){
+            month = "0" + month.toString()
+        }
+        let day = date.getDate()
+        if(day<10){
+            day = "0" + day.toString()
+        }
+        const today_date = day.toString() + month.toString() + year
+
+        var d = new Date();
+        d.setDate(d.getDate()).toString();
+        var today_dat = d.toDateString()
+
+        var month1 = new Map([['Jan','01'],['Feb','02'],['Mar','03'],['Apr','04'],['May','05'],['Jun','06'],['Jul','07'],['Aug','08'],['Sep','09'],['Oct','10'],['Nov','11'],['Dec','12']]);
+
+        const today_date = today_dat.substring(8,10) + month1.get(today_dat.substring(4,7)) + today_dat.substring(11,15)
+        var i = 1
+        var c = 0
+        var list = []
+        while(i<7){
+
+            var x = new Date()
+            x.setDate(x.getDate() + i).toString();
+            var prev = x.toDateString()
+            var prev_date = prev.substring(8,10) + month1.get(prev.substring(4,7)) + prev.substring(11,15)
+            const users = await firestore.collection(prev_date);
+            const data = await users.get();
+            
+            if(data.empty == false) {
+                data.forEach(doc => {
+                    firestore.collection(prev_date).doc(doc.id).delete()    
+                });
+            }
+            i=i+1
+            
+        }
+        res.render('../views/selectdate.ejs')
+        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+    
+}*/
 
 const addSport = async(req,res,next) => {
     try {
@@ -356,6 +405,7 @@ const deleteLabs = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
 const addslot = async (req, res, next) => {
     try{
         const classroom = await firestore.collection('ClassRooms');
@@ -368,6 +418,26 @@ const addslot = async (req, res, next) => {
                 classroomArray.push(doc.data().Name);
             });
         }
+        const lab = await firestore.collection('Labs');
+        const data1 = await lab.get();
+        const labArray = [];
+        if(data1.empty) {
+            res.status(404).send('No student record found');
+        }else {
+            data1.forEach(doc => {
+                labArray.push(doc.data().Name);
+            });
+        }
+        const sports = await firestore.collection('Sports');
+        const data2 = await sports.get();
+        const sportsArray = [];
+        if(data2.empty) {
+            res.status(404).send('No student record found');
+        }else {
+            data2.forEach(doc => {
+                sportsArray.push(doc.data().Name);
+            });
+        }
         var d = new Date();
         d.setDate(d.getDate()).toString();
         var today_dat = d.toDateString()
@@ -375,38 +445,108 @@ const addslot = async (req, res, next) => {
         var month1 = new Map([['Jan','01'],['Feb','02'],['Mar','03'],['Apr','04'],['May','05'],['Jun','06'],['Jul','07'],['Aug','08'],['Sep','09'],['Oct','10'],['Nov','11'],['Dec','12']]);
 
         const today_date = today_dat.substring(8,10) + month1.get(today_dat.substring(4,7)) + today_dat.substring(11,15)
-        var i = 1
+        var i = 0
         var c = 0
         var list = []
-        while(i==1){
+        var docData = {}
+        docData['09to10'] = 'available'
+        docData['10to11'] = 'available'
+        docData['11to12'] = 'available'
+        docData['12to13'] = 'available'
+        docData['13to14'] = 'available'
+        docData['14to15'] = 'available'
+        docData['15to16'] = 'available'
+        docData['16to17'] = 'available'
+        docData['type'] = 'ClassRooms'
+        var docData1 = {}
+        docData1['09to12'] = 'available'
+        docData1['12to15'] = 'available'
+        docData1['15to18'] = 'available'
+        docData1['type'] = 'Sports'
+        var docData2 = {}
+        docData2['09to10'] = 'available'
+        docData2['10to11'] = 'available'
+        docData2['11to12'] = 'available'
+        docData2['12to13'] = 'available'
+        docData2['13to14'] = 'available'
+        docData2['14to15'] = 'available'
+        docData2['15to16'] = 'available'
+        docData2['16to17'] = 'available'
+        docData2['type'] = 'Labs'
+        var list = []
+        while(i<7){
 
             var x = new Date()
             x.setDate(x.getDate() + i).toString();
             var prev = x.toDateString()
             var prev_date = prev.substring(8,10) + month1.get(prev.substring(4,7)) + prev.substring(11,15)
             const users = await firestore.collection(prev_date);
-            const data = await users.get();
-            var slot1= "09to10";
-            
-            if(data.empty) {
-                var docData = {
-                    slot1: "available"
-                };
-                classroomArray.forEach(doc => {
-                    firestore.collection(prev_date).doc(doc).set(docData)
-                });
-            }else {
-                continue;
-            }
+            const facility = await users.get();
+                
+                if(facility.empty){
+                    classroomArray.forEach(doc => {
+                        //const slots = firestore.collection(prev_date).doc(doc).get()
+                        //if(slots.exists == false){
+                            firestore.collection(prev_date).doc(doc).set(docData)
+                        //}
+                        list.push("yes")
+                    });
+                    labArray.forEach(doc => {
+                        //const slots1 = firestore.collection(prev_date).doc(doc).get()
+                        //if(slots1.empty){
+                            firestore.collection(prev_date).doc(doc).set(docData2)
+                        //}
+                        list.push("yes")
+                    });
+                    sportsArray.forEach(doc => {
+                        //const slots2 = firestore.collection(prev_date).doc(doc).get()
+                        //if(slots2.empty){
+                            firestore.collection(prev_date).doc(doc).set(docData1)
+                        //}
+                        list.push("yes")
+                    });
+                } 
+                else{
+                    for(let doc of classroomArray) {
+                        const slots =  await users.doc(doc).get()
+                        if(!slots.exists){
+                            firestore.collection(prev_date).doc(doc).set(docData)
+                        }
+                        else{
+                            list.push["yes"]
+                        }
+                        
+                    }
+                    for(let doc of labArray) {
+                        const slots =  await users.doc(doc).get()
+                        if(!slots.exists){
+                            firestore.collection(prev_date).doc(doc).set(docData2)
+                        }
+                        else{
+                            list.push["yes"]
+                        }
+                        
+                    }
+                    for(let doc of sportsArray) {
+                        const slots =  await users.doc(doc).get()
+                        if(!slots.exists){
+                            firestore.collection(prev_date).doc(doc).set(docData1)
+                        }
+                        else{
+                            list.push["yes"]
+                        }
+                        
+                    }
+                }   
+   
             i=i+1
         }
-        
+        //res.send(list)
+        res.render('../views/selectdate.ejs')
     } catch (error) {
         res.status(400).send(error.message);
     }
-    
-
-    }
+}
 
 module.exports = {
     updateStudent,
@@ -426,5 +566,5 @@ module.exports = {
     updateClassroom,
     editThisClassroom,
     deleteCollection,
-    addslot
+    addslot,
 }
