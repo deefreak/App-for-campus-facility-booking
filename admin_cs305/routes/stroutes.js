@@ -19,7 +19,8 @@ const {
        deleteLabs,
        updateClassroom,
        editThisClassroom,
-       deleteCollection
+       deleteCollection,
+       addslot
       } = require('../controllers/controller');
 
 const router = express.Router();
@@ -45,6 +46,8 @@ router.get('/addslot',(req,res) => {
 })
 
 router.get('/delete',deleteCollection)
+
+router.get('/addslotfor7',addslot)
 
 
 

@@ -356,6 +356,57 @@ const deleteLabs = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const addslot = async (req, res, next) => {
+    try{
+        const classroom = await firestore.collection('ClassRooms');
+        const data = await classroom.get();
+        const classroomArray = [];
+        if(data.empty) {
+            res.status(404).send('No student record found');
+        }else {
+            data.forEach(doc => {
+                classroomArray.push(doc.data().Name);
+            });
+        }
+        var d = new Date();
+        d.setDate(d.getDate()).toString();
+        var today_dat = d.toDateString()
+
+        var month1 = new Map([['Jan','01'],['Feb','02'],['Mar','03'],['Apr','04'],['May','05'],['Jun','06'],['Jul','07'],['Aug','08'],['Sep','09'],['Oct','10'],['Nov','11'],['Dec','12']]);
+
+        const today_date = today_dat.substring(8,10) + month1.get(today_dat.substring(4,7)) + today_dat.substring(11,15)
+        var i = 1
+        var c = 0
+        var list = []
+        while(i==1){
+
+            var x = new Date()
+            x.setDate(x.getDate() + i).toString();
+            var prev = x.toDateString()
+            var prev_date = prev.substring(8,10) + month1.get(prev.substring(4,7)) + prev.substring(11,15)
+            const users = await firestore.collection(prev_date);
+            const data = await users.get();
+            var slot1= "09to10";
+            
+            if(data.empty) {
+                var docData = {
+                    slot1: "available"
+                };
+                classroomArray.forEach(doc => {
+                    firestore.collection(prev_date).doc(doc).set(docData)
+                });
+            }else {
+                continue;
+            }
+            i=i+1
+        }
+        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+    
+
+    }
 
 module.exports = {
     updateStudent,
@@ -374,5 +425,6 @@ module.exports = {
     deleteLabs,
     updateClassroom,
     editThisClassroom,
-    deleteCollection
+    deleteCollection,
+    addslot
 }
