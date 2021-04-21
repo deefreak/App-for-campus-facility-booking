@@ -10,7 +10,11 @@ const User = require('../models/user');
 const BookingHistory = require('../models/bookinghistory')
 const firestore = firebase.firestore();
 
+const lib = require("../globals/global.js");
+
 const addClassroom = async(req,res,next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const data = req.body;
         await firestore.collection('ClassRooms').doc(req.body.Name).set(data);
@@ -21,6 +25,8 @@ const addClassroom = async(req,res,next) => {
 }
 
 const deleteCollection = async(req,res,next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         /*const date = new Date()
         const year = date.getFullYear().toString()
@@ -125,6 +131,8 @@ const deleteCollection = async(req,res,next) => {
 }*/
 
 const addSport = async(req,res,next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const data = req.body;
         await firestore.collection('Sports').doc(req.body.Name).set(data)
@@ -135,6 +143,8 @@ const addSport = async(req,res,next) => {
 }
 
 const addLab = async(req,res,next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const data = req.body;
         await firestore.collection('Labs').doc(req.body.Name).set(data);
@@ -144,6 +154,11 @@ const addLab = async(req,res,next) => {
     }
 }
 const getAllUsers = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+    console.log(lib);
+    if(lib.login=='false')
+    res.redirect('/'); 
     try {
         const users = await firestore.collection('Users');
         const data = await users.get();
@@ -168,6 +183,8 @@ const getAllUsers = async (req, res, next) => {
     }
 }
 const getAllClassRooms = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const classroom = await firestore.collection('ClassRooms');
         const data = await classroom.get();
@@ -192,6 +209,8 @@ const getAllClassRooms = async (req, res, next) => {
 }
 
 const getAllClassRooms1 = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const classroom = await firestore.collection('ClassRooms');
         const data = await classroom.get();
@@ -246,6 +265,8 @@ const getAllClassRooms1 = async (req, res, next) => {
     }
 }
 const getAllLabs = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const lab = await firestore.collection('Labs');
         const data = await lab.get();
@@ -271,6 +292,8 @@ const getAllLabs = async (req, res, next) => {
 
 
 const getAllSports = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const sport = await firestore.collection('Sports');
         const data = await sport.get();
@@ -292,6 +315,8 @@ const getAllSports = async (req, res, next) => {
 }
 
 const getClassRoom = async (req,res,next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const history = await firestore.collection('ClassRooms');
@@ -315,6 +340,8 @@ const getClassRoom = async (req,res,next) => {
 }
 
 const getBookingHistory = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const history = await firestore.collection('BookingHistory');
@@ -342,6 +369,8 @@ const getBookingHistory = async (req, res, next) => {
 
 
 const updateStudent = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const data = req.body;
@@ -353,6 +382,8 @@ const updateStudent = async (req, res, next) => {
     }
 }
 const updateClassroom = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const classroom = await firestore.collection('ClassRooms').doc(id).get()
@@ -366,6 +397,8 @@ const updateClassroom = async (req, res, next) => {
     }
 }
 const editThisClassroom = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const data = req.body;
@@ -379,6 +412,8 @@ const editThisClassroom = async (req, res, next) => {
 
 
 const deleteClassRoom = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const classroom = await firestore.collection('ClassRooms').doc(id).delete();
@@ -388,6 +423,8 @@ const deleteClassRoom = async (req, res, next) => {
     }
 }
 const deleteSports = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const classroom = await firestore.collection('Sports').doc(id).delete();
@@ -396,7 +433,10 @@ const deleteSports = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
-const deleteLabs = async (req, res, next) => {
+const deleteLabs = async (req, res, next) => 
+{
+    if(lib.login=='false')
+    res.redirect('/login');
     try {
         const id = req.params.id;
         const classroom = await firestore.collection('Labs').doc(id).delete();
@@ -407,6 +447,8 @@ const deleteLabs = async (req, res, next) => {
 }
 
 const addslot = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
     try{
         const classroom = await firestore.collection('ClassRooms');
         const data = await classroom.get();

@@ -1,7 +1,9 @@
 const express = require('express');
+
 const firebase = require('../db');
 const firestore = firebase.firestore();
 
+const lib = require("../globals/global.js");
 const {
        updateStudent,
        deleteClassRoom,
@@ -26,26 +28,78 @@ const {
 
 const router = express.Router();
 
+
 router.get('/',(req,res) => {
-    res.render("../views/home.ejs")
+  
+    if(lib.login=='true')
+    res.render("../views/home.ejs");
+    else
+    res.render("../views/login.ejs");
+})
+
+router.get('/login',(req,res) => {
+  if(lib.login=='true') 
+  res.redirect('/');
+  else
+  res.render("../views/login.ejs")
+})
+
+router.post('/getlogin',function(req,res,next){
+  
+
+  var username = req.body.exampleInputEmail1;
+  var password = req.body.exampleInputPassword1;
+
+  console.log('start');
+  console.log(username);
+  console.log(password);
+  
+  
+  if(username == "admin@gmail.com" && password == "admin")
+  {
+    lib.login  = 'true';
+    console.log('worked');
+  }
+  else
+  {
+    console.log('not');
+  }
+  res.redirect('/');
+
 })
 
 router.get('/classrooms',(req,res) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+
     res.render("../views/classrooms.ejs")
 })
 router.get('/sports',(req,res) => {
+  if(lib.login=='false')
+  res.redirect('/login');
+
     res.render("../views/sports.ejs")
 })
 
 router.get('/labs',(req,res) => {
+  if(lib.login=='false')
+  res.redirect('/login');
+
     res.render("../views/labs.ejs")
 })
 
 
 router.get('/addslot',(req,res) => {
+  if(lib.login=='false')
+    res.redirect('/login');
+    
     res.render("../views/selectdate.ejs")
 })
 
+router.get('/logout',(req,res)=>{
+  lib.login =  'false';
+  res.redirect('/');
+})
 router.get('/delete',deleteCollection)
 
 router.get('/addslotfor7',addslot)
