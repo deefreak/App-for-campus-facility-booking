@@ -43,13 +43,17 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
         var type = ""
         var date1 = bookingList[position].date
+        Log.d("rewy",date1)
         var slot = bookingList[position].slot
 
-                var currentDate = SimpleDateFormat("yyyyMMdd").format(Date())
+                var currentDate = SimpleDateFormat("ddMMyyyy").format(Date()).toString()
 
+                Log.d("tree",currentDate)
+                var x = (currentDate == date1)
+                Log.d("rdfsrs",x.toString())
 
+                if(x){
 
-                if(currentDate.toInt() == date1.toInt()){
                     var time = SimpleDateFormat("HHmmss").format(Date())
                     var currenthour = time.substring(0,2)
                     var startTime = ""
@@ -80,7 +84,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                         holder.statusButton.text = "Upcoming"
                         holder.statusButton.setBackgroundColor(Color.parseColor("#1738cf"))
                     }
-                    else if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
+                    if(currenthour.toInt() >= startTime.toInt() && currenthour.toInt() < endTime.toInt()){
                         holder.statusButton.text = "Ongoing"
                         holder.statusButton.setBackgroundColor(Color.parseColor("#13d162"))
                     }
@@ -89,12 +93,16 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                     holder.statusButton.text = "Upcoming"
                     holder.statusButton.setBackgroundColor(Color.parseColor("#1738cf"))
                 }
+                else{
+                    holder.statusButton.text = "Completed"
+                    holder.statusButton.setBackgroundColor(Color.parseColor("#ed3434"))
+                }
                 var date2 = ""
                 var j = 0
                 var i =0
                 var n = date1.length
                 while(j<n) {
-                    if (i == 4 || i == 7){
+                    if (i == 2 || i == 5){
                         date2 = "$date2/"
                         i++
                     }
