@@ -31,10 +31,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.lang.Math.abs
-import java.lang.Math.cos
+import java.lang.Math.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
 
 class MarkAttendanceActivity : AppCompatActivity() {
 
@@ -57,6 +57,8 @@ class MarkAttendanceActivity : AppCompatActivity() {
 
     var userLatitude = ""
     var userLongitude = ""
+    var facilityLatitude = 0.00
+    var facilityLongitude = 0.00
     lateinit var Lat : TextView
     lateinit var Lon : TextView
     lateinit var addr : TextView
@@ -203,6 +205,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
         doAsync {
             var list: MutableList<BookingHistory> = mutableListOf()
             var ongoinglist: MutableList<BookingHistory> = mutableListOf()
+            var ongoingllist: MutableList<BookingHistory> = mutableListOf()
             val fireStore = FirebaseFirestore.getInstance()
             val auth = FirebaseAuth.getInstance()
             val email = auth.currentUser.email
@@ -252,8 +255,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
 
                                 val auth = FirebaseAuth.getInstance()
                                 var c = 0
-                                var facilityLatitude = 0.00
-                                var facilityLongitude = 0.00
+
 
                                 var meters = 10
                                 var coef = meters * 0.0000089
@@ -267,20 +269,24 @@ class MarkAttendanceActivity : AppCompatActivity() {
                                                             for(document in documents) {
                                                                 facilityLatitude = document.data.getValue("Latitude").toString().toDouble()
                                                                 facilityLongitude = document.data.getValue("Longitude").toString().toDouble()
+                                                                var dist = distance(userLatitude.toDouble(),userLongitude.toDouble(),facilityLatitude,facilityLongitude)
+                                                                if(dist < 0.2) {
+                                                                    ongoingllist.add(i)
+                                                                }
                                                             }
+                                                            ongoinglist.clear()
+                                                            for(x in ongoingllist) {
+                                                                ongoinglist.add(x)
+                                                            }
+                                                            (recyclerView.adapter as MarkAttendanceAdapter).notifyDataSetChanged()
                                                             new_latitude = facilityLatitude + coef
                                                             new_longitude = facilityLongitude + coef / cos(facilityLongitude*0.018)
-                                                            Log.d("userLatitude",userLatitude)
-                                                            Log.d("userLongitude",userLongitude)
                                                         }
+
                                                         .addOnFailureListener{
                                                             Toast.makeText(this@MarkAttendanceActivity,"Error",Toast.LENGTH_LONG).show()
                                                         }
-                                                if((abs(userLatitude.toDouble()-facilityLatitude)>=0.000) && (abs(userLongitude.toDouble()-facilityLongitude)>=0.000)) {
-                                                    ongoinglist.add(i)
-                                                }
                                             }
-                                            (recyclerView.adapter as MarkAttendanceAdapter).notifyDataSetChanged()
                                         }
                             }
                         }
@@ -296,6 +302,22 @@ class MarkAttendanceActivity : AppCompatActivity() {
                 markAttendanceAdapter.setList(ongoinglist)
             }
         }
+    }
+
+    private fun distance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
+        val earthRadius = 3958.75 // in miles, change to 6371 for kilometer output
+
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLng = Math.toRadians(lng2 - lng1)
+
+        val sindLat = sin(dLat / 2)
+        val sindLng = sin(dLng / 2)
+
+        val a = sindLat.pow(2.0) + (sindLng.pow(2.0) * cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)))
+
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+        return earthRadius * c // output distance, in MILES
     }
 
 }
