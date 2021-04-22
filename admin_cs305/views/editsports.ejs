@@ -24,7 +24,7 @@
 
 </style>
 
-<body  onload = "readTask()">
+<body>
   <nav class="navbar py-0 navbar-expand-lg navbar-dark bg-info">
 
     <div class="container-fluid"  style = "width:60%">
@@ -77,7 +77,8 @@
         <div class="card-body text-dark">
           <h5 class="card-title">Sports Complex</h5>
           
-          <button href="" style = "width:50%" class="btn btn-outline-primary">Edit</button>
+          <a href="/sports/editsports/<%= sport.Name%>/editthis" style="width:50%"
+            class="btn btn-outline-primary">Edit</a>
           <form style="display: inline;" action= "/sports/editsports/<%= sport.Name %> " method = "POST">     
           <button href="" style = "width:48%" class="btn btn-outline-danger">Delete</button></form>
         </div>

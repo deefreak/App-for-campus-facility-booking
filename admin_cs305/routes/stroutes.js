@@ -21,6 +21,14 @@ const {
        deleteLabs,
        updateClassroom,
        editThisClassroom,
+
+       updateLab,
+       editThisLab,
+       
+       updateSport,
+       editThisSport,
+       
+
        deleteCollection,
        addslot,
        
@@ -104,7 +112,7 @@ router.get('/delete',deleteCollection)
 
 router.get('/addslotfor7',addslot)
 //router.get('/deleteupcoming',deleteupcomingslots)
-
+ 
 
 
 
@@ -126,8 +134,17 @@ router.post('/labs/editlabs/:id',deleteLabs)
 
 
 router.get('/users/:id',getBookingHistory)
+
 router.get('/classrooms/edit/:id/editthis',updateClassroom)
 router.post('/classrooms/edit/:id/editthis',editThisClassroom)
+
+router.get('/sports/editsports/:id/editthis',updateSport)
+router.post('/sports/editsports/:id/editthis',editThisSport)
+
+router.get('/labs/editlabs/:id/editthis',updateLab)
+router.post('/labs/editlabs/:id/editthis',editThisLab)
+
+
 
 //ADD slot section------------
 router.get('/addslot/:DATE',getAllClassRooms1);

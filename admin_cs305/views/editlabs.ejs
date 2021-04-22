@@ -78,7 +78,8 @@
           <h5 class="card-title"><%=lab.BuildingName%></h5>
           <p class="card-text">Equipment :  <%=lab.Equipments%></p>
           
-          <button href="" style = "width:50%" class="btn btn-outline-primary">Edit</button>
+          <a href="/labs/editlabs/<%= lab.Name%>/editthis" style="width:50%"
+            class="btn btn-outline-primary">Edit</a>
           <form style="display: inline;" action= "/labs/editlabs/<%= lab.Name %> " method = "POST">     
           <button href="" style = "width:48%" class="btn btn-outline-danger">Delete</button></form>
           

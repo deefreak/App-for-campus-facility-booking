@@ -102,7 +102,7 @@ body{
   </div>
   </section>
 
-    <!-- add new classroom  modal  -->
+    <!-- add new classroom  modal   -->
     <div style=" text-align: center;width: 100%;" class="container">
         <button style = "width: 350px;margin: 10px;font-size: 30px;" type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add New Classroom
@@ -128,26 +128,37 @@ body{
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">Building Name</label>
                             <input type="text" name="BuildingName" class="form-control" id="buildingname"
-                                placeholder="Enter Building Name">
+                                placeholder="Enter Building Name" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">Department</label>
                             <input type="text" name="Department" class="form-control" id="department"
-                                placeholder="Department">
+                                placeholder="Department" required>
                         </div>
                         <div class="mb-3">
                             <label for="formGroupExampleInput3" class="form-label">Classroom Name</label>
                             <input type="text" name="Name" class="form-control" id="classroom-name"
-                                placeholder="Classroom Name">
+                                placeholder="Classroom Name" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="formGroupExampleInput4" class="form-label">strength</label>
                             <input type="text" name="Strength" class="form-control" id="strength"
-                                placeholder="Strength">
+                                placeholder="Strength"required>
                         </div>
 
-                       
+                        <div class="mb-3">
+                          <label for="formGroupExampleInput5" class="form-label">latitude</label>
+                          <input type="text" name="Latitude" class="form-control" id="latitude"
+                              placeholder="Latitude" required>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="formGroupExampleInput6" class="form-label">longitude</label>
+                        <input type="text" name="Longitude" class="form-control" id="longitude"
+                            placeholder="Longitude" required>
+                    </div>
+
                         <button  id = "button1" class="btn btn-primary"><i class ="fa fa-save"></i> &nbsp; Save</button>
                       
                     </form>

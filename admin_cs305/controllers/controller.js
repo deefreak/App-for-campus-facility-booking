@@ -200,7 +200,7 @@ const getAllClassRooms = async (req, res, next) => {
                     doc.data().Strength
                 );
                 classroomArray.push(classroom);
-            });
+            }); 
             res.render("../views/edit.ejs",{classroomArray})
         }
     } catch (error) {
@@ -391,7 +391,9 @@ const updateClassroom = async (req, res, next) => {
         const buildingname = classroom.data().BuildingName
         const strength = classroom.data().Strength
         const department = classroom.data().Department
-        res.render('../views/update.ejs',{name,buildingname,strength,department})        
+        const latitude =classroom.data().Latitude
+        const longitude = classroom.data().Longitude
+        res.render('../views/update.ejs',{name,buildingname,strength,department,latitude,longitude})        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -404,6 +406,64 @@ const editThisClassroom = async (req, res, next) => {
         const data = req.body;
         const classroom = await firestore.collection('ClassRooms').doc(id)
         await classroom.update(data)
+        res.send("Updated")     
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const updateSport = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+    try {
+        const id = req.params.id;
+        const sport = await firestore.collection('Sports').doc(id).get()
+        const name = sport.data().Name
+        
+        res.render('../views/updatesports.ejs',{name})        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const editThisSport = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const sport = await firestore.collection('Sports').doc(id)
+        await sport.update(data)
+        res.send("Updated")     
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+} 
+
+const updateLab = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+    try {
+        const id = req.params.id;
+        const lab = await firestore.collection('Labs').doc(id).get()
+        const name = lab.data().Name
+        const buildingname = lab.data().BuildingName
+        const equipments = lab.data().Equipments
+        const department = lab.data().Department
+        const latitude = lab.data().Latitude
+        const longitude = lab.data().Longitude
+        res.render('../views/updatelabs.ejs',{name,buildingname,equipments,department,latitude,longitude})        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const editThisLab = async (req, res, next) => {
+    if(lib.login=='false')
+    res.redirect('/login');
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const lab = await firestore.collection('Labs').doc(id)
+        await lab.update(data)
         res.send("Updated")     
     } catch (error) {
         res.status(400).send(error.message);
@@ -609,4 +669,9 @@ module.exports = {
     editThisClassroom,
     deleteCollection,
     addslot,
+    updateSport,
+    editThisSport,
+    updateLab,
+    editThisLab,
+       
 }
