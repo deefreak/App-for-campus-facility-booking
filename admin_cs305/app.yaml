@@ -1,15 +1,12 @@
 runtime: nodejs10
 
 env_variables:
-    PORT=8000
-    HOST=localhost
-    HOST_URL=http://localhost:8000
-
-    #firebase database config
-    API_KEY=AIzaSyBZqUc8-DvSjpI1a5nn35LrZXUO3Lc0fi8
-    AUTH_DOMAIN=campusfacilitybooking.firebaseapp.com
-    DATABASE_URL=
-    PROJECT_ID=campusfacilitybooking
-    STORAGE_BUCKET=campusfacilitybooking.appspot.com
-    MESSAGING_SENDER_ID=43196823541
-    APP_ID=1:43196823541:web:7afd5d4b210a2fd86f12bc
+  DB_USER: "root"
+  DB_NAME: "database"
+  DB_PASS: "xyz1234pbj"
+  DB_INSTANCE: "project-name:us-central1:sql-instance"
+  TESTVAR: "hehehe"
+  TWILIO_SID: "XYZ1234PBJ"
+  TWILIO_AUTH_TOKEN: "XYZ1234PBJ"
+  GOOGLE_CLIENT_ID: "xyz1234PBJ.apps.googleusercontent.com"
+  GOOGLE_CLIENT_SECRET: "xyz1234-PBJ"
