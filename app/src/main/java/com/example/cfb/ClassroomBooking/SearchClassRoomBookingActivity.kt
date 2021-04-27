@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,6 +20,8 @@ import com.example.cfb.models.BookingHistory
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 
@@ -70,27 +73,44 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        var unit = ""
-        var hospital = ""
+        fetchToDoList()
 
-        val fireStore = FirebaseFirestore.getInstance()
-        fireStore.collection("BookingHistory").whereEqualTo("bookedBy",auth.currentUser.email).whereEqualTo("type","ClassRooms").get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val det = document.toObject(BookingHistory::class.java)
-                    list.add(det)
-                    list1.add(det)
-                }
-                (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
-                if (list.isEmpty()) {
-                    Toast.makeText(
-                        applicationContext,
-                        "No Bookings",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+    }
+    private fun fetchToDoList() {
+        doAsync {
+            val fireStore = FirebaseFirestore.getInstance()
+            val auth = FirebaseAuth.getInstance()
+            val email = auth.currentUser.email
+            fireStore.collection("BookingHistory").whereEqualTo("bookedBy",auth.currentUser.email).whereEqualTo("type","ClassRooms").get()
+
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            list.add(document.toObject(BookingHistory::class.java))
+                            list1.add(document.toObject(BookingHistory::class.java))
+                        }
+                        for (i in list){
+                            var date = i.date
+                            var date1 = date.substring(4,8) + date.substring(2,4) + date.substring(0,2)
+                            i.date = date1
+                        }
+                        for (i in list1){
+                            var date = i.date
+                            var date1 = date.substring(4,8) + date.substring(2,4) + date.substring(0,2)
+                            i.date = date1
+                        }
+                        list1.sortByDescending { it.date }
+                        list.sortByDescending {it.date}
+                        (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
+                    }
+                    .addOnFailureListener {
+                        Log.e("No","Error")
+                    }
+
+            uiThread {
+
+                viewBookingHistoryAdapter.setList(list)
             }
-        (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
+        }
     }
 
 
@@ -109,6 +129,12 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                     nameT.isEnabled = true
                     search.setOnClickListener {
                         list1.clear()
+                        viewBookingHistoryAdapter = ViewBookingHistoryAdapter(this, list1)
+
+
+                        recyclerView.adapter = viewBookingHistoryAdapter
+
+                        recyclerView.layoutManager = LinearLayoutManager(this)
                         var nameentered = nameT.editText?.text.toString()
                         for(item in list){
                             if(item.facilityName.startsWith(nameentered)){
@@ -147,9 +173,9 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                             }
                             if (dayOfMonth < 10) {
                                 daynumber = "0$dayOfMonth"
-                                date = daynumber + monthnumber + year.toString()
+                                date = year.toString() + monthnumber + daynumber
                             }
-                            else {date = dayOfMonth.toString() + monthnumber + year.toString()}
+                            else {date = year.toString() + monthnumber + dayOfMonth.toString()}
                         }, year, month, day)
 
                         val now = System.currentTimeMillis() - 1000
@@ -159,7 +185,12 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                     }
                     search.setOnClickListener {
                         list1.clear()
+                        viewBookingHistoryAdapter = ViewBookingHistoryAdapter(this, list1)
 
+
+                        recyclerView.adapter = viewBookingHistoryAdapter
+
+                        recyclerView.layoutManager = LinearLayoutManager(this)
                         for(item in list){
                             if(item.date == date){
                                 list1.add(item)
@@ -175,6 +206,12 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                     nameT.hint = "Select from PopUp to Search"
                     pickedDate.visibility = View.GONE
                         list1.clear()
+                    viewBookingHistoryAdapter = ViewBookingHistoryAdapter(this, list1)
+
+
+                    recyclerView.adapter = viewBookingHistoryAdapter
+
+                    recyclerView.layoutManager = LinearLayoutManager(this)
                         for(item in list){
 
                                 list1.add(item)

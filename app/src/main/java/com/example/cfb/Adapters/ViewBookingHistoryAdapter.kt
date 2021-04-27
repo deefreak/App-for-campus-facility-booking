@@ -43,10 +43,11 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
 
         var type = ""
         var date1 = bookingList[position].date
+
         Log.d("rewy",date1)
         var slot = bookingList[position].slot
 
-                var currentDate = SimpleDateFormat("ddMMyyyy").format(Date()).toString()
+                var currentDate = SimpleDateFormat("yyyyMMdd").format(Date()).toString()
 
                 Log.d("tree",currentDate)
                 var x = (currentDate == date1)
@@ -102,7 +103,7 @@ class ViewBookingHistoryAdapter(var context: Context, var bookingList: MutableLi
                 var i =0
                 var n = date1.length
                 while(j<n) {
-                    if (i == 2 || i == 5){
+                    if (i == 4 || i == 7){
                         date2 = "$date2/"
                         i++
                     }

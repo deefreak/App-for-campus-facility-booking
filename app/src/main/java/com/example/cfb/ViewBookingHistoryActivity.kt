@@ -68,7 +68,16 @@ class ViewBookingHistoryActivity : AppCompatActivity() {
                         list.add(document.toObject(BookingHistory::class.java))
                         list1.add(document.toObject(BookingHistory::class.java))
                     }
-
+                    for (i in list){
+                        var date = i.date
+                        var date1 = date.substring(4,8) + date.substring(2,4) + date.substring(0,2)
+                        i.date = date1
+                    }
+                    for (i in list1){
+                        var date = i.date
+                        var date1 = date.substring(4,8) + date.substring(2,4) + date.substring(0,2)
+                        i.date = date1
+                    }
                     list1.sortByDescending { it.date }
                     list.sortByDescending {it.date}
                     (recyclerView.adapter as ViewBookingHistoryAdapter).notifyDataSetChanged()
