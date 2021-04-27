@@ -33,7 +33,7 @@ class ClassRoomBookingActivity : AppCompatActivity() {
         }
 
         bookedClasses.setOnClickListener {
-            val intent = Intent(this,ViewBookingHistoryActivity::class.java)
+            val intent = Intent(this,SearchClassRoomBookingActivity::class.java)
             startActivity(intent)
         }
 
