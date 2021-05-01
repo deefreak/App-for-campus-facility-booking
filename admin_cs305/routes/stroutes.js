@@ -63,7 +63,7 @@ router.post('/getlogin',function(req,res,next){
   console.log(password);
   
   
-  if(username == "admin@gmail.com" && password == "admin")
+  if(username == "admin@gmail.com" && password == "Admin123")
   {
     lib.login  = 'true';
     console.log('worked');

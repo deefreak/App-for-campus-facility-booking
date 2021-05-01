@@ -348,11 +348,13 @@ const getBookingHistory = async (req, res, next) => {
         const data = await history.get()
         const historyArray = [];
         data.forEach(doc => {
+            var datee = doc.data().date
+            var bookdate = datee.substring(0,2) + "-" + datee.substring(2,4) + "-" + datee.substring(4,8)
             if(doc.data().bookedBy == id){
                 const myHistory = new BookingHistory(
                     doc.data().bookedBy,
                     doc.data().building,
-                    doc.data().date,
+                    bookdate,
                     doc.data().facilityName,
                     doc.data().name,
                     doc.data().purpose,

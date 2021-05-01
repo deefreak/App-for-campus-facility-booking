@@ -1,7 +1,14 @@
+  
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Template Mo">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <script>
         $(function () {
             $("#id12").load("navbar.html");
@@ -15,10 +22,6 @@
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
     crossorigin="anonymous"/>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -30,57 +33,84 @@
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-storage.js"></script>
     <script src="js/index.js"></script>
 
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/templatemo-art-factory.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/owl-carousel.css">
+
 
     <title>Home</title>
 </head>
 
 <body>
 
-    <nav class="navbar py-0 navbar-expand-lg navbar-dark bg-info">
-
-      <div class="container-fluid"  style = "width:60%">
-          <a class="navbar-brand" href="/">
-            <i class="fa fa-home" aria-hidden="true"></i>
-            <b>Admin Portal</b>
-          </a>
+      <!-- ***** Preloader Start ***** -->
+      <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">:)</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/"><b>HOME</b></a>
-                    </li>
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/users"><b>USERS</b></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/classrooms"><b>CLASSROOMS</b></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/sports"><b>SPORTS</b></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/labs"><b>LABS</b></a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="/addslot"><b>ADD SLOT</b></a>
-                </li>
-              </ul>
-              <span class="navbar-text">
-                <a class="nav-link" aria-current="page" href="/logout"><b><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Logout</b></a>
-            </span>
-            </div>
-          </div>
-        <!-- </nav> -->
-    </nav>
+    </div>  
+    <!-- ***** Preloader End ***** -->
 
-    <section class="h-100">
+        <!-- ***** Header Area Start ***** -->
+        <header class="header-area header-sticky">
+          <div class="container">
+              <div class="row">
+                  <div class="col-12">
+                      <nav class="main-nav">
+                          <!-- ***** Logo Start ***** -->
+                          <a href="/" class="logo"><i class="fa fa-home" aria-hidden="true"></i> &nbsp;Admin Portal</a>
+                          <!-- ***** Logo End ***** -->
+                          <!-- ***** Menu Start ***** -->
+                          <ul class="nav">
+                              <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+                              <li class="scroll-to-section"><a href="/users">USERS</a></li>
+                              <li class="scroll-to-section"><a href="/classrooms">CLASSROOMS</a></li>
+                              <li class="scroll-to-section"><a href="/labs">LABS</a></li>
+                              <li class="scroll-to-section"><a href="/sports">SPORTS</a></li>
+                              <li class="scroll-to-section"><a href="/addslot">ADD SLOT</a></li>
+                              <li class="scroll-to-section"><a href="/logout"><b><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Logout</b></a></li>
+                          </ul>
+                          <a class='menu-trigger'>
+                              <span>Menu</span>
+                          </a>
+                          <!-- ***** Menu End ***** -->
+                      </nav>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <!-- ***** Header Area End ***** -->
+
+    <nav class="navbar py-0 navbar-expand-lg navbar-dark bg-info">
+      <!-- ***** Welcome Area Start ***** -->
+      <div class="welcome-area" id="welcome">
+  
+          <!-- ***** Header Text Start ***** -->
+          <div class="header-text">
+              <div class="container">
+                  <div class="row">
+                      <div class="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                          <h2>Campus Facility Booking IIT Ropar</h2> </br>
+                          <p>Android application to manage all campus facility booking purposes. This is admin portal to manage app database.</p>
+                          <a class="main-button-slider" href="#addfacility">Manage Facility</a> &nbsp; &nbsp;
+                          <a class="main-button-slider" href="https://github.com/CS305-software-Engineering/App-for-campus-facility-booking/releases/download/Application/campusfacilitybooking.apk"><i class="fa fa-android" aria-hidden="true"></i> &nbsp;GET APP</a>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                          <img src="../img/administrator.svg" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- ***** Header Text End ***** -->
+      </div>
+      <!-- ***** Welcome Area End ***** -->
+  </nav>
+
+    <section class="h-100" id="addfacility">
       <div class="position-absolute h-100 w-100" style="
               z-index: -1;
               /* background-image: url('images/back.jpg'); */
@@ -123,27 +153,27 @@
 
     <a href="classrooms" class="custom-card">
       <div class="card" style="width: 15rem; display: inline-block">
-        <img class="card-img-top" src="https://source.unsplash.com/200x200?shade" alt="Card image cap">
+        <img class="card-img-top" src="../img/classroom.svg" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">CLASSROOMS</h5>
           <p class="card-text">CRUD classrooms data</p>
         </div>
       </div>
     </a>
-
+    &nbsp; &nbsp; &nbsp;
     <a href="labs" class="custom-card">
       <div class="card" style="width: 15rem; display: inline-block">
-        <img class="card-img-top" src="https://source.unsplash.com/200x200?pattern" alt="Card image cap">
+        <img class="card-img-top" src="../img/chemistry.svg" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">LABS</h5>
           <p class="card-text">CRUD labs data</p>
         </div>
       </div>
     </a>
-
+    &nbsp; &nbsp; &nbsp;
     <a href="sports" class="custom-card">
       <div class="card" style="width: 15rem; display: inline-block">
-        <img class="card-img-top" src="https://source.unsplash.com/200x200?color" alt="Card image cap">
+        <img class="card-img-top" src="../img/sports.svg" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">SPORTS</h5>
           <p class="card-text">CRUD sports data</p>
@@ -162,6 +192,22 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
-</body>
+    <!-- jQuery -->
+    <script src="../assets/js/jquery-2.1.0.min.js"></script>
 
+    <!-- Bootstrap -->
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../assets/js/owl-carousel.js"></script>
+    <script src="../assets/js/scrollreveal.min.js"></script>
+    <script src="../assets/js/waypoints.min.js"></script>
+    <script src="../assets/js/jquery.counterup.min.js"></script>
+    <script src="../assets/js/imgfix.min.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="../assets/js/custom.js"></script>
+
+  </body>
 </html>
