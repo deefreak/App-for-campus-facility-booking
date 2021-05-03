@@ -193,36 +193,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category: "
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/facultyRadio"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FACULTY"
-                android:layout_marginRight="5dp"
-                android:textSize="15dp"
-                />
-            <RadioButton
-                android:id="@+id/studentRadio"
+                android:text="Category: "
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="STUDENT"
-                android:textSize="15dp"
-                />
-        </RadioGroup>
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/facultyRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FACULTY"
+                    android:layout_marginRight="5dp"
+                    android:textSize="15dp"
+                    />
+                <RadioButton
+                    android:id="@+id/studentRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STUDENT"
+                    android:textSize="15dp"
+                    />
+            </RadioGroup>
         </LinearLayout>
 
     </com.google.android.material.textfield.TextInputLayout>

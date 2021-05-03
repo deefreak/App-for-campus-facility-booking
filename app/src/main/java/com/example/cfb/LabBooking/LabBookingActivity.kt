@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.example.cfb.HomePageActivity
 import com.example.cfb.R
-import com.example.cfb.ViewBookingHistoryActivity
 
 
 class LabBookingActivity : AppCompatActivity() {
@@ -26,7 +24,7 @@ class LabBookingActivity : AppCompatActivity() {
         }
 
         bookedLabs.setOnClickListener {
-            val intent = Intent(this, ViewBookingHistoryActivity::class.java)
+            val intent = Intent(this, SearchLabBookingActivity::class.java)
             startActivity(intent)
         }
 

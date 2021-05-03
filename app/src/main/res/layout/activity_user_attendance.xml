@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".UserAttendanceActivity">
+    tools:context=".AttendanceModule.UserAttendanceActivity">
 
 
     <TextView
@@ -18,7 +18,7 @@
         android:text="ATTENDANCE RECORD"
 
         android:textColor="#3192F4"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:fontFamily="@font/black_ops_one"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +38,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHistory"
-        android:layout_width="410dp"
-        android:layout_height="681dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

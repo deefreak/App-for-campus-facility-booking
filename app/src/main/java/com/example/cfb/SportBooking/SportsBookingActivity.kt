@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import com.example.cfb.HomePageActivity
 import com.example.cfb.R
-import com.example.cfb.ViewBookingHistoryActivity
 
 class SportsBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +23,7 @@ class SportsBookingActivity : AppCompatActivity() {
         }
 
         bookedSports.setOnClickListener {
-            val intent = Intent(this, ViewBookingHistoryActivity::class.java)
+            val intent = Intent(this, SearchSportsBookingActivity::class.java)
             startActivity(intent)
         }
 

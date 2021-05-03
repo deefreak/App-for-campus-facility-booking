@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 
 import android.util.Log
 import com.example.cfb.R
-import com.example.cfb.ViewAllAttendanceActivity
+import com.example.cfb.AttendanceModule.ViewAllAttendanceActivity
 import com.example.cfb.models.BookingHistory
-import org.jetbrains.anko.find
 
 
 import java.text.SimpleDateFormat

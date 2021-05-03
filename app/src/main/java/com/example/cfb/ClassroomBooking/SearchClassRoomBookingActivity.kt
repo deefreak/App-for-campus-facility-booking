@@ -42,7 +42,7 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
         search = findViewById(R.id.searchButton)
         val searchmenu: ImageButton = findViewById(R.id.sortButton)
         nameT = findViewById(R.id.name)
-        nameT.hint = "Please Select from PopUp to Search"
+        nameT.hint = "Select from Menu"
         nameT.isEnabled = false
         pickedDate = findViewById(R.id.pickDate)
 
@@ -123,7 +123,7 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
             when (item!!.itemId) {
                 R.id.header1 -> {
 
-                    nameT.hint = "Enter Name to Search"
+                    nameT.hint = "Enter Name"
                     pickedDate.visibility = View.GONE
                     nameT.editText?.setText("")
                     nameT.isEnabled = true
@@ -148,7 +148,7 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                 }
 
                 R.id.header2 -> {
-                    nameT.hint = "Enter Date to Search"
+                    nameT.hint = "Enter Date"
                     pickedDate.visibility = View.VISIBLE
                     nameT.isEnabled = false
                     nameT.editText?.setText("")
@@ -203,7 +203,7 @@ class SearchClassRoomBookingActivity : AppCompatActivity() {
                 }
                 R.id.header3 -> {
                     nameT.isEnabled = false
-                    nameT.hint = "Select from PopUp to Search"
+                    nameT.hint = "Select from Menu to Search"
                     pickedDate.visibility = View.GONE
                         list1.clear()
                     viewBookingHistoryAdapter = ViewBookingHistoryAdapter(this, list1)

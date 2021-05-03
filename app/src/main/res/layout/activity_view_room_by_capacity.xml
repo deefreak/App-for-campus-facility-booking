@@ -16,7 +16,7 @@
         android:layout_marginTop="24dp"
         android:text="All Rooms Of Capacity "
         android:textColor="#3192F4"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,8 +24,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCapacity"
-        android:layout_width="410dp"
-        android:layout_height="681dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

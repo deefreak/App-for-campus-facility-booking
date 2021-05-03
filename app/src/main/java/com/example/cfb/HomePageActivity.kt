@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.cfb.AttendanceModule.MarkAttendanceActivity
+import com.example.cfb.AttendanceModule.UserAttendanceActivity
 import com.example.cfb.ClassroomBooking.ClassRoomBookingActivity
 import com.example.cfb.LabBooking.LabBookingActivity
 import com.example.cfb.SportBooking.SportsBookingActivity
@@ -90,13 +92,15 @@ class HomePageActivity : AppCompatActivity() {
                             }
 
                             else {
-                                val intent = Intent(this,MarkAttendanceActivity::class.java)
+                                val intent = Intent(this,
+                                    MarkAttendanceActivity::class.java)
                                 startActivity(intent)
                             }
                         }
 
                         viewAttendance.setOnClickListener {
-                            val intent = Intent(this,UserAttendanceActivity::class.java)
+                            val intent = Intent(this,
+                                UserAttendanceActivity::class.java)
                             startActivity(intent)
                         }
                     }

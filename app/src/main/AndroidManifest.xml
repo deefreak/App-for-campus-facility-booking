@@ -2,17 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cfb">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusFacilityBooking">
-        <activity android:name=".ClassroomBooking.SearchClassRoomBookingActivity"></activity>
-        <activity android:name=".UserAttendanceActivity" />
-        <activity android:name=".ViewAllAttendanceActivity" />
-        <activity android:name=".MarkAttendanceActivity" />
+        <activity android:name=".SportBooking.SearchSportsBookingActivity"></activity>
+        <activity android:name=".LabBooking.SearchLabBookingActivity" />
+        <activity android:name=".ClassroomBooking.SearchClassRoomBookingActivity" />
+        <activity android:name=".AttendanceModule.UserAttendanceActivity" />
+        <activity android:name=".AttendanceModule.ViewAllAttendanceActivity" />
+        <activity android:name=".AttendanceModule.MarkAttendanceActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LabBooking.LabSlotActivity" />
         <activity android:name=".LabBooking.SearchByLabNameActivity" />
@@ -40,8 +45,5 @@
         <activity android:name=".SportBooking.SportsBookingActivity" />
         <activity android:name=".LabBooking.ConfirmLabBookingActivity" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
