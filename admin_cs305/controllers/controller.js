@@ -142,6 +142,36 @@ const addSport = async(req,res,next) => {
     }
 }
 
+const getAllDateBookings = async(req,res,next) => {
+    try {
+        const date = req.body.date;
+        var newdate = '';
+        newdate = date[8] + date[9] + date[5] + date[6] + date[0] + date[1] + date[2] + date[3];
+        const history = await firestore.collection('BookingHistory');
+        const data = await history.get()
+        const historyArray = [];
+        data.forEach(doc => {
+            var datee = doc.data().date
+            var bookdate = datee.substring(0,2) + "-" + datee.substring(2,4) + "-" + datee.substring(4,8)
+            if(doc.data().date == newdate){
+                const myHistory = new BookingHistory(
+                    doc.data().bookedBy,
+                    doc.data().building,
+                    bookdate,
+                    doc.data().facilityName,
+                    doc.data().name,
+                    doc.data().purpose,
+                    doc.data().slot
+                );
+                historyArray.push(myHistory);
+            }
+        });
+        res.render('../views/bookings.ejs',{historyArray})
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addLab = async(req,res,next) => {
     if(lib.login=='false')
     res.redirect('/login');
@@ -675,5 +705,6 @@ module.exports = {
     editThisSport,
     updateLab,
     editThisLab,
+    getAllDateBookings
        
 }

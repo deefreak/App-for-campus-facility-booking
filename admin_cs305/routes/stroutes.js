@@ -31,6 +31,7 @@ const {
 
        deleteCollection,
        addslot,
+       getAllDateBookings
        
       } = require('../controllers/controller');
 
@@ -130,6 +131,7 @@ router.get('/labs/editlabs',getAllLabs)
 router.post('/classrooms/edit/:id',deleteClassRoom)
 router.post('/sports/editsports/:id',deleteSports)
 router.post('/labs/editlabs/:id',deleteLabs)
+router.post('/bookings',getAllDateBookings)
  
 
 
