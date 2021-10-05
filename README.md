@@ -9,7 +9,7 @@ This platform provides an easy and effective way for faculties, representatives 
 - Allow students to book usage of lab equipment.
 - A web based application for admin access for the same
 - Allow peers for booking tennis,badminton etc courts.
-- Allow students to mark attendace via location based attendace system
+- Allow students to mark their attendace via location based attendace system
 
 *** 
 
